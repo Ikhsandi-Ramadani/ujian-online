@@ -76,8 +76,8 @@
                     </Link>
                 </li>
 
-                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/classrooms') }">
-                    <Link href="/admin/classrooms" class="nav-link d-flex justify-content-between">
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/teachers') }">
+                    <Link href="/admin/teachers" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
