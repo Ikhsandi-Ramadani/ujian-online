@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <Link href="/admin/exam_sessions" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
+                <Link href="/teacher/exam_sessions" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
                     class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
 
                 <div class="card border-0 shadow mb-4">
@@ -49,7 +49,7 @@
                         <h5> <i class="fa fa-user-plus"></i> Enrolled Mahasiswa</h5>
                         <hr>
 
-                        <Link :href="`/admin/exam_sessions/${exam_session.id}/enrolle/create`"
+                        <Link :href="`/teacher/exam_sessions/${exam_session.id}/enrolle/create`"
                             class="btn btn-md btn-primary border-0 shadow me-2" type="button"><i
                             class="fa fa-user-plus"></i> Enrolle Mahasiswa</Link>
 
@@ -91,7 +91,7 @@
 
 <script>
 //import layout
-import LayoutAdmin from '../../../Layouts/Admin.vue';
+import LayoutTeacher from '../../../Layouts/Teacher.vue';
 
 //import component pagination
 import Pagination from '../../../Components/Pagination.vue';
@@ -111,7 +111,7 @@ import Swal from 'sweetalert2';
 export default {
 
     //layout
-    layout: LayoutAdmin,
+    layout: LayoutTeacher,
 
     //register components
     components: {
@@ -143,7 +143,7 @@ export default {
                 .then((result) => {
                     if (result.isConfirmed) {
 
-                        Inertia.delete(`/admin/exam_sessions/${exam_session_id}/enrolle/${exam_group_id}/destroy`);
+                        Inertia.delete(`/teacher/exam_sessions/${exam_session_id}/enrolle/${exam_group_id}/destroy`);
 
                         Swal.fire({
                             title: 'Deleted!',

@@ -1,15 +1,15 @@
 <template>
     <Head>
-        <title>Tambah Soal Ujian - Aplikasi Ujian Online</title>
+        <title>Edit Soal Ujian - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
-                <Link :href="`/admin/exams/${exam.id}`" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
-                    class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
+                <Link :href="`/teacher/exams/${exam.id}`" class="btn btn-md btn-primary border-0 shadow mb-3" type="button">
+                <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        <h5><i class="fa fa-question-circle"></i> Tambah Soal Ujian</h5>
+                        <h5><i class="fa fa-question-circle"></i> Edit Soal Ujian</h5>
                         <hr>
                         <form @submit.prevent="submit">
 
@@ -109,7 +109,7 @@
 
 <script>
 //import layout
-import LayoutAdmin from '../../../Layouts/Admin.vue';
+import LayoutTeacher from '../../../Layouts/Teacher.vue';
 
 //import Heade and Link from Inertia
 import {
@@ -132,7 +132,7 @@ import Editor from '@tinymce/tinymce-vue';
 export default {
 
     //layout
-    layout: LayoutAdmin,
+    layout: LayoutTeacher,
 
     //register components
     components: {
@@ -145,6 +145,7 @@ export default {
     props: {
         errors: Object,
         exam: Object,
+        question: Object,
     },
 
     //inisialisasi composition API
@@ -152,20 +153,20 @@ export default {
 
         //define form with reactive
         const form = reactive({
-            question: '',
-            option_1: '',
-            option_2: '',
-            option_3: '',
-            option_4: '',
-            option_5: '',
-            answer: '',
+            question: props.question.question,
+            option_1: props.question.option_1,
+            option_2: props.question.option_2,
+            option_3: props.question.option_3,
+            option_4: props.question.option_4,
+            option_5: props.question.option_5,
+            answer: props.question.answer,
         });
 
         //method "submit"
         const submit = () => {
 
             //send data to server
-            Inertia.post(`/admin/exams/${props.exam.id}/questions/store`, {
+            Inertia.put(`/teacher/exams/${props.exam.id}/questions/${props.question.id}/update`, {
                 //data
                 question: form.question,
                 option_1: form.option_1,
@@ -179,7 +180,7 @@ export default {
                     //show success alert
                     Swal.fire({
                         title: 'Success!',
-                        text: 'Soal Ujian Berhasil Disimpan!.',
+                        text: 'Soal Ujian Berhasil Dipdate!.',
                         icon: 'success',
                         showConfirmButton: false,
                         timer: 2000
@@ -193,7 +194,7 @@ export default {
         return {
             form,
             submit,
-        };
+        }
 
     }
 

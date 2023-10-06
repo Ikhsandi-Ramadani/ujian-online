@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Teacher;
 
 use App\Models\Exam;
 use App\Models\Lesson;
@@ -26,7 +26,7 @@ class ExamController extends Controller
         //append query string to pagination links
         $exams->appends(['q' => request()->q]);
         //render with inertia
-        return inertia('Admin/Exams/Index', [
+        return inertia('Teacher/Exams/Index', [
             'exams' => $exams,
         ]);
     }
@@ -41,7 +41,7 @@ class ExamController extends Controller
         //get lessons
         $lessons = Lesson::all();
         //render with inertia
-        return inertia('Admin/Exams/Create', [
+        return inertia('Teacher/Exams/Create', [
             'lessons' => $lessons
         ]);
     }
@@ -76,7 +76,7 @@ class ExamController extends Controller
             'show_answer'       => $request->show_answer,
         ]);
         //redirect
-        return redirect()->route('admin.exams.index');
+        return redirect()->route('teacher.exams.index');
     }
 
     /**
@@ -92,7 +92,7 @@ class ExamController extends Controller
         //get relation questions with pagination
         $exam->setRelation('questions', $exam->questions()->paginate(5));
         //render with inertia
-        return inertia('Admin/Exams/Show', [
+        return inertia('Teacher/Exams/Show', [
             'exam' => $exam,
         ]);
     }
@@ -110,7 +110,7 @@ class ExamController extends Controller
         //get lessons
         $lessons = Lesson::all();
         //render with inertia
-        return inertia('Admin/Exams/Edit', [
+        return inertia('Teacher/Exams/Edit', [
             'exam' => $exam,
             'lessons' => $lessons,
         ]);
@@ -147,7 +147,7 @@ class ExamController extends Controller
             'show_answer'       => $request->show_answer,
         ]);
         //redirect
-        return redirect()->route('admin.exams.index');
+        return redirect()->route('teacher.exams.index');
     }
 
     /**
@@ -163,7 +163,7 @@ class ExamController extends Controller
         //delete exam
         $exam->delete();
         //redirect
-        return redirect()->route('admin.exams.index');
+        return redirect()->route('teacher.exams.index');
     }
 
     /**
@@ -175,7 +175,7 @@ class ExamController extends Controller
     public function createQuestion(Exam $exam)
     {
         //render with inertia
-        return inertia('Admin/Questions/Create', [
+        return inertia('Teacher/Questions/Create', [
             'exam' => $exam,
         ]);
     }
@@ -213,7 +213,7 @@ class ExamController extends Controller
         ]);
 
         //redirect
-        return redirect()->route('admin.exams.show', $exam->id);
+        return redirect()->route('teacher.exams.show', $exam->id);
     }
 
     /**
@@ -226,7 +226,7 @@ class ExamController extends Controller
     public function editQuestion(Exam $exam, Question $question)
     {
         //render with inertia
-        return inertia('Admin/Questions/Edit', [
+        return inertia('Teacher/Questions/Edit', [
             'exam' => $exam,
             'question' => $question,
         ]);
@@ -265,7 +265,7 @@ class ExamController extends Controller
         ]);
 
         //redirect
-        return redirect()->route('admin.exams.show', $exam->id);
+        return redirect()->route('teacher.exams.show', $exam->id);
     }
 
     /**
@@ -280,7 +280,7 @@ class ExamController extends Controller
         //delete question
         $question->delete();
         //redirect
-        return redirect()->route('admin.exams.show', $exam->id);
+        return redirect()->route('teacher.exams.show', $exam->id);
     }
 
     /**
@@ -290,7 +290,7 @@ class ExamController extends Controller
      */
     public function import(Exam $exam)
     {
-        return inertia('Admin/Questions/Import', [
+        return inertia('Teacher/Questions/Import', [
             'exam' => $exam
         ]);
     }
@@ -309,6 +309,6 @@ class ExamController extends Controller
         // import data
         Excel::import(new QuestionsImport(), $request->file('file'));
         //redirect
-        return redirect()->route('admin.exams.show', $exam->id);
+        return redirect()->route('teacher.exams.show', $exam->id);
     }
 }

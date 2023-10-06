@@ -1,14 +1,15 @@
 <template>
     <Head>
-        <title>Sesi Ujian - Aplikasi Ujian Online</title>
+        <title>Ujian - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-3 col-12 mb-2">
-                        <Link href="/admin/exam_sessions/create" class="btn btn-md btn-primary border-0 shadow w-100"
-                            type="button"><i class="fa fa-plus-circle"></i>
+                        <Link href="/teacher/exams/create" class="btn btn-md btn-primary border-0 shadow w-100"
+                            type="button">
+                        <i class="fa fa-plus-circle"></i>
                         Tambah</Link>
                     </div>
                     <div class="col-md-9 col-12 mb-2">
@@ -22,7 +23,6 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -37,44 +37,34 @@
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Ujian</th>
-                                        <th class="border-0">Sesi</th>
-                                        <th class="border-0">Siswa</th>
-                                        <th class="border-0">Mulai</th>
-                                        <th class="border-0">Selesai</th>
+                                        <th class="border-0">Mata Kuliah</th>
+                                        <th class="border-0">Jumlah Soal</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <div class="mt-2"></div>
                                 <tbody>
-                                    <tr v-for="(exam_session, index) in exam_sessions.data" :key="index">
-                                        <td class="fw-bold text-center">{{ ++index + (exam_sessions.current_page - 1) *
-                                            exam_sessions.per_page }}</td>
-                                        <td>
-                                            <strong class="fw-bold">{{ exam_session.exam.title }}</strong>
-                                            <ul class="mt-2">
-                                                <li>Pelajaran : <strong class="fw-bold">{{ exam_session.exam.lesson.title
-                                                }}</strong></li>
-                                            </ul>
-                                        </td>
-                                        <td>{{ exam_session.title }}</td>
-                                        <td class="text-center">{{ exam_session.exam_groups.length }}</td>
-                                        <td>{{ exam_session.start_time }}</td>
-                                        <td>{{ exam_session.end_time }}</td>
+                                    <tr v-for="(exam, index) in exams.data" :key="index">
+                                        <td class="fw-bold text-center">{{ ++index + (exams.current_page - 1) *
+                                            exams.per_page }}</td>
+                                        <td>{{ exam.title }}</td>
+                                        <td>{{ exam.lesson.title }}</td>
+                                        <td class="text-center">{{ exam.questions.length }}</td>
                                         <td class="text-center">
-                                            <Link :href="`/admin/exam_sessions/${exam_session.id}`"
+                                            <Link :href="`/teacher/exams/${exam.id}`"
                                                 class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i
                                                 class="fa fa-plus-circle"></i></Link>
-                                            <Link :href="`/admin/exam_sessions/${exam_session.id}/edit`"
+                                            <Link :href="`/teacher/exams/${exam.id}/edit`"
                                                 class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i
                                                 class="fa fa-pencil-alt"></i></Link>
-                                            <button @click.prevent="destroy(exam_session.id)"
+                                            <button @click.prevent="destroy(exam.id)"
                                                 class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <Pagination :links="exam_sessions.links" align="end" />
+                        <Pagination :links="exams.links" align="end" />
                     </div>
                 </div>
             </div>
@@ -84,7 +74,7 @@
 
 <script>
 //import layout
-import LayoutAdmin from '../../../Layouts/Admin.vue';
+import LayoutTeacher from '../../../Layouts/Teacher.vue';
 
 //import component pagination
 import Pagination from '../../../Components/Pagination.vue';
@@ -108,7 +98,7 @@ import Swal from 'sweetalert2';
 
 export default {
     //layout
-    layout: LayoutAdmin,
+    layout: LayoutTeacher,
 
     //register component
     components: {
@@ -119,7 +109,7 @@ export default {
 
     //props
     props: {
-        exam_sessions: Object,
+        exams: Object,
     },
 
     //inisialisasi composition API
@@ -130,7 +120,7 @@ export default {
 
         //define method search
         const handleSearch = () => {
-            Inertia.get('/admin/exam_sessions', {
+            Inertia.get('/teacher/exams', {
 
                 //send params "q" with value from state "search"
                 q: search.value,
@@ -151,11 +141,11 @@ export default {
                 .then((result) => {
                     if (result.isConfirmed) {
 
-                        Inertia.delete(`/admin/exam_sessions/${id}`);
+                        Inertia.delete(`/teacher/exams/${id}`);
 
                         Swal.fire({
                             title: 'Deleted!',
-                            text: 'Sesi Ujian Berhasil Dihapus!.',
+                            text: 'Ujian Berhasil Dihapus!.',
                             icon: 'success',
                             timer: 2000,
                             showConfirmButton: false,

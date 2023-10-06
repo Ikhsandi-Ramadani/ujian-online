@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <Link href="/admin/exams" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
+                <Link href="/teacher/exams" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
                     class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
 
                 <div class="card border-0 shadow mb-4">
@@ -44,10 +44,10 @@
                         <h5> <i class="fa fa-question-circle"></i> Soal Ujian</h5>
                         <hr>
 
-                        <Link :href="`/admin/exams/${exam.id}/questions/create`"
+                        <Link :href="`/teacher/exams/${exam.id}/questions/create`"
                             class="btn btn-md btn-primary border-0 shadow me-2" type="button"><i
                             class="fa fa-plus-circle"></i> Tambah</Link>
-                        <Link :href="`/admin/exams/${exam.id}/questions/import`"
+                        <Link :href="`/teacher/exams/${exam.id}/questions/import`"
                             class="btn btn-md btn-success border-0 shadow text-white" type="button"><i
                             class="fa fa-file-excel"></i> Import</Link>
 
@@ -82,7 +82,7 @@
                                             </ol>
                                         </td>
                                         <td class="text-center">
-                                            <Link :href="`/admin/exams/${exam.id}/questions/${question.id}/edit`"
+                                            <Link :href="`/teacher/exams/${exam.id}/questions/${question.id}/edit`"
                                                 class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i
                                                 class="fa fa-pencil-alt"></i></Link>
                                             <button @click.prevent="destroy(exam.id, question.id)"
@@ -103,7 +103,7 @@
 
 <script>
 //import layout
-import LayoutAdmin from '../../../Layouts/Admin.vue';
+import LayoutTeacher from '../../../Layouts/Teacher.vue';
 
 //import component pagination
 import Pagination from '../../../Components/Pagination.vue';
@@ -123,7 +123,7 @@ import Swal from 'sweetalert2';
 export default {
 
     //layout
-    layout: LayoutAdmin,
+    layout: LayoutTeacher,
 
     //register components
     components: {
@@ -155,7 +155,7 @@ export default {
                 .then((result) => {
                     if (result.isConfirmed) {
 
-                        Inertia.delete(`/admin/exams/${exam_id}/questions/${question_id}/destroy`);
+                        Inertia.delete(`/teacher/exams/${exam_id}/questions/${question_id}/destroy`);
 
                         Swal.fire({
                             title: 'Deleted!',

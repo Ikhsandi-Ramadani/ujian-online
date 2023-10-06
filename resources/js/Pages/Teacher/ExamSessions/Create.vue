@@ -5,7 +5,7 @@
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
-                <Link href="/admin/exam_sessions" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
+                <Link href="/teacher/exam_sessions" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
                     class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
@@ -73,7 +73,7 @@
 
 <script>
 //import layout
-import LayoutAdmin from '../../../Layouts/Admin.vue';
+import LayoutTeacher from '../../../Layouts/Teacher.vue';
 
 //import Heade and Link from Inertia
 import {
@@ -101,7 +101,7 @@ import '@vuepic/vue-datepicker/dist/main.css';
 export default {
 
     //layout
-    layout: LayoutAdmin,
+    layout: LayoutTeacher,
 
     //register components
     components: {
@@ -131,7 +131,7 @@ export default {
         const submit = () => {
 
             //send data to server
-            Inertia.post('/admin/exam_sessions', {
+            Inertia.post('/teacher/exam_sessions', {
                 //data
                 title: form.title,
                 exam_id: form.exam_id,

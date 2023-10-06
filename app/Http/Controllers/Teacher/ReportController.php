@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Teacher;
 
 use Carbon\Carbon;
 use App\Models\Exam;
@@ -23,7 +23,7 @@ class ReportController extends Controller
         //geta ll exams
         $exams = Exam::with('lesson')->get();
 
-        return inertia('Admin/Reports/Index', [
+        return inertia('Teacher/Reports/Index', [
             'exams'         => $exams,
             'grades'        => []
         ]);
@@ -57,7 +57,7 @@ class ReportController extends Controller
         } else {
             $grades = [];
         }
-        return inertia('Admin/Reports/Index', [
+        return inertia('Teacher/Reports/Index', [
             'exams'         => $exams,
             'grades'         => $grades,
         ]);

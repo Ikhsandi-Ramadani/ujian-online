@@ -5,7 +5,7 @@
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
-                <Link :href="`/admin/exam_sessions/${exam_session.id}`" class="btn btn-md btn-primary border-0 shadow mb-3"
+                <Link :href="`/teacher/exam_sessions/${exam_session.id}`" class="btn btn-md btn-primary border-0 shadow mb-3"
                     type="button"><i class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
@@ -55,7 +55,7 @@
 
 <script>
 //import layout
-import LayoutAdmin from '../../../Layouts/Admin.vue';
+import LayoutTeacher from '../../../Layouts/Teacher.vue';
 
 //import Heade and Link from Inertia
 import {
@@ -81,7 +81,7 @@ import Swal from 'sweetalert2';
 export default {
 
     //layout
-    layout: LayoutAdmin,
+    layout: LayoutTeacher,
 
     //register components
     components: {
@@ -120,7 +120,7 @@ export default {
         const submit = () => {
 
             //send data to server
-            Inertia.post(`/admin/exam_sessions/${props.exam_session.id}/enrolle/store`, {
+            Inertia.post(`/teacher/exam_sessions/${props.exam_session.id}/enrolle/store`, {
                 //data
                 exam_id: form.exam_id,
                 student_id: form.student_id,

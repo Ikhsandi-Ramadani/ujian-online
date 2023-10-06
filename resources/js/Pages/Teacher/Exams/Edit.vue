@@ -1,15 +1,15 @@
 <template>
     <Head>
-        <title>Tambah Ujian - Aplikasi Ujian Online</title>
+        <title>Edit Ujian - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
-                <Link href="/admin/exams" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
+                <Link href="/teacher/exams" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
                     class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        <h5><i class="fa fa-edit"></i> Tambah Ujian</h5>
+                        <h5><i class="fa fa-edit"></i> Edit Ujian</h5>
                         <hr>
                         <form @submit.prevent="submit">
 
@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Mata Kuliah</label>
+                                        <label>Mata Pelajaran</label>
                                         <select class="form-select" v-model="form.lesson_id">
                                             <option v-for="(lesson, index) in lessons" :key="index" :value="lesson.id">{{
                                                 lesson.title }}</option>
@@ -37,6 +37,7 @@
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="mb-4">
                                 <label>Deskripsi</label>
@@ -102,7 +103,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button>
+                            <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Update</button>
                             <button type="reset" class="btn btn-md btn-warning border-0 shadow">Reset</button>
                         </form>
                     </div>
@@ -114,7 +115,7 @@
 
 <script>
 //import layout
-import LayoutAdmin from '../../../Layouts/Admin.vue';
+import LayoutTeacher from '../../../Layouts/Teacher.vue';
 
 //import Heade and Link from Inertia
 import {
@@ -137,7 +138,7 @@ import Editor from '@tinymce/tinymce-vue';
 export default {
 
     //layout
-    layout: LayoutAdmin,
+    layout: LayoutTeacher,
 
     //register components
     components: {
@@ -149,29 +150,29 @@ export default {
     //props
     props: {
         errors: Object,
+        exam: Object,
         lessons: Array,
-        classrooms: Array,
     },
 
     //inisialisasi composition API
-    setup() {
+    setup(props) {
 
         //define form with reactive
         const form = reactive({
-            title: '',
-            lesson_id: '',
-            duration: '',
-            description: '',
-            random_question: '',
-            random_answer: '',
-            show_answer: '',
+            title: props.exam.title,
+            lesson_id: props.exam.lesson_id,
+            duration: props.exam.duration,
+            description: props.exam.description,
+            random_question: props.exam.random_question,
+            random_answer: props.exam.random_answer,
+            show_answer: props.exam.show_answer,
         });
 
         //method "submit"
         const submit = () => {
 
             //send data to server
-            Inertia.post('/admin/exams', {
+            Inertia.put(`/teacher/exams/${props.exam.id}`, {
                 //data
                 title: form.title,
                 lesson_id: form.lesson_id,
@@ -185,7 +186,7 @@ export default {
                     //show success alert
                     Swal.fire({
                         title: 'Success!',
-                        text: 'Ujian Berhasil Disimpan!.',
+                        text: 'Ujian Berhasil Diupdate!.',
                         icon: 'success',
                         showConfirmButton: false,
                         timer: 2000

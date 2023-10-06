@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Teacher;
 
 use App\Models\Exam;
 use App\Models\Student;
@@ -25,7 +25,7 @@ class ExamSessionController extends Controller
         //append query string to pagination links
         $exam_sessions->appends(['q' => request()->q]);
         //render with inertia
-        return inertia('Admin/ExamSessions/Index', [
+        return inertia('Teacher/ExamSessions/Index', [
             'exam_sessions' => $exam_sessions,
         ]);
     }
@@ -40,7 +40,7 @@ class ExamSessionController extends Controller
         //get exams
         $exams = Exam::all();
         //render with inertia
-        return inertia('Admin/ExamSessions/Create', [
+        return inertia('Teacher/ExamSessions/Create', [
             'exams' => $exams,
         ]);
     }
@@ -68,7 +68,7 @@ class ExamSessionController extends Controller
             'end_time'      => date('Y-m-d H:i:s', strtotime($request->end_time)),
         ]);
         //redirect
-        return redirect()->route('admin.exam_sessions.index');
+        return redirect()->route('teacher.exam_sessions.index');
     }
 
     /**
@@ -84,7 +84,7 @@ class ExamSessionController extends Controller
         //get relation exam_groups with pagination
         $exam_session->setRelation('exam_groups', $exam_session->exam_groups()->with('student')->paginate(5));
         //render with inertia
-        return inertia('Admin/ExamSessions/Show', [
+        return inertia('Teacher/ExamSessions/Show', [
             'exam_session'  => $exam_session,
         ]);
     }
@@ -102,7 +102,7 @@ class ExamSessionController extends Controller
         //get exams
         $exams = Exam::all();
         //render with inertia
-        return inertia('Admin/ExamSessions/Edit', [
+        return inertia('Teacher/ExamSessions/Edit', [
             'exam_session'  => $exam_session,
             'exams'         => $exams,
         ]);
@@ -132,7 +132,7 @@ class ExamSessionController extends Controller
             'end_time'      => date('Y-m-d H:i:s', strtotime($request->end_time)),
         ]);
         //redirect
-        return redirect()->route('admin.exam_sessions.index');
+        return redirect()->route('teacher.exam_sessions.index');
     }
 
     /**
@@ -148,7 +148,7 @@ class ExamSessionController extends Controller
         //delete exam_session
         $exam_session->delete();
         //redirect
-        return redirect()->route('admin.exam_sessions.index');
+        return redirect()->route('teacher.exam_sessions.index');
     }
 
     /**
@@ -169,7 +169,7 @@ class ExamSessionController extends Controller
         $students = Student::whereNotIn('id', $students_enrolled)->get();
 
         //render with inertia
-        return inertia('Admin/ExamGroups/Create', [
+        return inertia('Teacher/ExamGroups/Create', [
             'exam'          => $exam,
             'exam_session'  => $exam_session,
             'students'      => $students,
@@ -201,7 +201,7 @@ class ExamSessionController extends Controller
             ]);
         }
         //redirect
-        return redirect()->route('admin.exam_sessions.show', $exam_session->id);
+        return redirect()->route('teacher.exam_sessions.show', $exam_session->id);
     }
     /**
      * destroyEnrolle
@@ -216,6 +216,6 @@ class ExamSessionController extends Controller
         $exam_group->delete();
 
         //redirect
-        return redirect()->route('admin.exam_sessions.show', $exam_session->id);
+        return redirect()->route('teacher.exam_sessions.show', $exam_session->id);
     }
 }

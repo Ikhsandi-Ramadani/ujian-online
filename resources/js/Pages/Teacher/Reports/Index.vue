@@ -41,7 +41,7 @@
                                 <h5 class="mt-2"><i class="fa fa-chart-line"></i> Laporan Nilai Ujian</h5>
                             </div>
                             <div class="col-md-3 col-12">
-                                <a :href="`/admin/reports/export?exam_id=${form.exam_id}`" target="_blank"
+                                <a :href="`/teacher/reports/export?exam_id=${form.exam_id}`" target="_blank"
                                     class="btn btn-success btn-md border-0 shadow w-100 text-white"><i
                                         class="fa fa-file-excel"></i> DOWNLOAD EXCEL</a>
                             </div>
@@ -82,8 +82,8 @@
 </template>
 
 <script>
-//import layout Admin
-import LayoutAdmin from '../../../Layouts/Admin.vue';
+//import layout teacher
+import LayoutTeacher from '../../../Layouts/Teacher.vue';
 
 //import Head from Inertia
 import {
@@ -99,7 +99,7 @@ import { Inertia } from '@inertiajs/inertia';
 export default {
 
     //layout
-    layout: LayoutAdmin,
+    layout: LayoutTeacher,
 
     //register components
     components: {
@@ -125,7 +125,7 @@ export default {
         const filter = () => {
 
             //HTTP request
-            Inertia.get('/admin/reports/filter', {
+            Inertia.get('/teacher/reports/filter', {
 
                 //send data to server
                 exam_id: form.exam_id,
