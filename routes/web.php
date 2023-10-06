@@ -95,3 +95,13 @@ Route::get('/', function () {
 
 //login students
 Route::post('/students/login', \App\Http\Controllers\Student\LoginController::class)->name('student.login');
+//prefix "student"
+Route::prefix('student')->group(function () {
+
+    //middleware "student"
+    Route::group(['middleware' => 'student'], function () {
+
+        //route dashboard
+        Route::get('/dashboard', App\Http\Controllers\Student\DashboardController::class)->name('student.dashboard');
+    });
+});
