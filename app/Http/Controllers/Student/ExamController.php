@@ -301,7 +301,7 @@ class ExamController extends Controller
     public function resultExam($exam_group_id)
     {
         //get exam group
-        $exam_group = ExamGroup::with('exam.lesson', 'exam_session', 'student.classroom')
+        $exam_group = ExamGroup::with('exam.lesson', 'exam_session', 'exam.teacher', 'student')
             ->where('student_id', auth()->guard('student')->user()->id)
             ->where('id', $exam_group_id)
             ->first();

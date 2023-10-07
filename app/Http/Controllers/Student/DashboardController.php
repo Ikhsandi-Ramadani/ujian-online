@@ -18,7 +18,7 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         //get exam groups
-        $exam_groups = ExamGroup::with('exam.lesson', 'exam_session', 'student')
+        $exam_groups = ExamGroup::with('exam.lesson', 'exam_session','exam.teacher','student')
             ->where('student_id', auth()->guard('student')->user()->id)
             ->get();
 

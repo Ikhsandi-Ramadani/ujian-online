@@ -43,7 +43,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-4">
                                         <label>Waktu Mulai</label>
-                                        <Datepicker v-model="form.start_time" />
+                                        <Datepicker v-model="form.start_time" teleport-center />
                                         <div v-if="errors.start_time" class="alert alert-danger mt-2">
                                             {{ errors.start_time }}
                                         </div>

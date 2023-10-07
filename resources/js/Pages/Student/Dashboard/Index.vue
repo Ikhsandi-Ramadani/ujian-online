@@ -19,6 +19,10 @@
                         <table class="table table-centered table-nowrap mb-0 rounded">
                             <thead>
                                 <tr>
+                                    <td class="fw-bold">Dosen</td>
+                                    <td>{{ data.exam_group.exam.teacher.name }}</td>
+                                </tr>
+                                <tr>
                                     <td class="fw-bold">Mata Kuliah</td>
                                     <td>{{ data.exam_group.exam.lesson.title }}</td>
                                 </tr>

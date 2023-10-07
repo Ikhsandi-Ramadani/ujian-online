@@ -19,6 +19,7 @@
                                     <td class="fw-bold">Nama Lengkap</td>
                                     <td>{{ exam_group.student.name }}</td>
                                 </tr>
+
                                 <tr>
                                     <td class="fw-bold">Ujian</td>
                                     <td>{{ exam_group.exam.title }}</td>
@@ -26,6 +27,10 @@
                                 <tr>
                                     <td class="fw-bold">Mata Kuliah</td>
                                     <td>{{ exam_group.exam.lesson.title }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Dosen</td>
+                                    <td>{{ exam_group.exam.teacher.name }}</td>
                                 </tr>
                                 <tr>
                                     <td class="fw-bold">Mulai Mengerjakan</td>
