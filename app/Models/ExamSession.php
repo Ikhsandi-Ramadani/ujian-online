@@ -24,17 +24,17 @@ class ExamSession extends Model
         'end_time',
     ];
 
-    public function getStartTimeAttribute($value)
-    {
-        // Menggunakan Carbon untuk mengubah format tanggal
-        return Carbon::parse($value)->translatedFormat('l, d F Y, H:i'); // Format tanggal Indonesia
-    }
+    // public function getStartTimeAttribute($value)
+    // {
+    //     // Menggunakan Carbon untuk mengubah format tanggal
+    //     return Carbon::parse($value)->translatedFormat('l, d F Y, H:i'); // Format tanggal Indonesia
+    // }
 
-    public function getEndTimeAttribute($value)
-    {
-        // Menggunakan Carbon untuk mengubah format tanggal
-        return Carbon::parse($value)->translatedFormat('l, d F Y, H:i'); // Format tanggal Indonesia
-    }
+    // public function getEndTimeAttribute($value)
+    // {
+    //     // Menggunakan Carbon untuk mengubah format tanggal
+    //     return Carbon::parse($value)->translatedFormat('l, d F Y, H:i'); // Format tanggal Indonesia
+    // }
 
     public function exam_groups()
     {

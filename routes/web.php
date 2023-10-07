@@ -1,20 +1,27 @@
 <?php
-
+// Admin
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\LessonController;
-use App\Http\Controllers\Teacher\ExamController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
+//Teacher
+use App\Http\Controllers\Teacher\DashboardController as TeacherDashboard;
+use App\Http\Controllers\Teacher\ExamController;
+use App\Http\Controllers\Teacher\LoginController as TeacherLogin;
 use App\Http\Controllers\Teacher\ReportController;
-use App\Http\Controllers\Teacher\DashboardController;
 use App\Http\Controllers\Teacher\ExamSessionController;
+// Student
+use App\Http\Controllers\Student\LoginController as StudentLogin;
+use App\Http\Controllers\Student\DashboardController as StudentDashboard;
+use App\Http\Controllers\Student\ExamController as StudentExam;
 
 //prefix "admin"
 Route::prefix('admin')->group(function () {
     //middleware "auth"
     Route::group(['middleware' => ['auth']], function () {
         //route dashboard
-        Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
+        Route::get('/dashboard', AdminDashboard::class)->name('admin.dashboard');
         //route resource lessons
         Route::resource('/lessons', LessonController::class, ['as' => 'admin']);
         //route student import
@@ -45,11 +52,11 @@ Route::prefix('teacher')->group(function () {
         return \Inertia\Inertia::render('Teacher/Login/Index');
     });
     //login teacher
-    Route::post('/login', \App\Http\Controllers\Teacher\LoginController::class)->name('teacher.login');
+    Route::post('/login', TeacherLogin::class)->name('teacher.login');
     //middleware "teacher"
     Route::group(['middleware' => 'teacher'], function () {
         //route dashboard
-        Route::get('/dashboard', App\Http\Controllers\Teacher\DashboardController::class)->name('teacher.dashboard');
+        Route::get('/dashboard', TeacherDashboard::class)->name('teacher.dashboard');
         //route resource exams
         Route::resource('/exams', ExamController::class, ['as' => 'teacher']);
         //custom route for create question exam
@@ -94,7 +101,7 @@ Route::get('/', function () {
 });
 
 //login students
-Route::post('/students/login', \App\Http\Controllers\Student\LoginController::class)->name('student.login');
+Route::post('/students/login', StudentLogin::class)->name('student.login');
 //prefix "student"
 Route::prefix('student')->group(function () {
 
@@ -102,6 +109,20 @@ Route::prefix('student')->group(function () {
     Route::group(['middleware' => 'student'], function () {
 
         //route dashboard
-        Route::get('/dashboard', App\Http\Controllers\Student\DashboardController::class)->name('student.dashboard');
+        Route::get('/dashboard', StudentDashboard::class)->name('student.dashboard');
+        //route exam confirmation
+        Route::get('/exam-confirmation/{id}', [StudentExam::class, 'confirmation'])->name('student.exams.confirmation');
+        //route exam start
+        Route::get('/exam-start/{id}', [App\Http\Controllers\Student\ExamController::class, 'startExam'])->name('student.exams.startExam');
+        //route exam show
+        Route::get('/exam/{id}/{page}', [App\Http\Controllers\Student\ExamController::class, 'show'])->name('student.exams.show');
+        //route exam update duration
+        Route::put('/exam-duration/update/{grade_id}', [App\Http\Controllers\Student\ExamController::class, 'updateDuration'])->name('student.exams.update_duration');
+        //route answer question
+        Route::post('/exam-answer', [App\Http\Controllers\Student\ExamController::class, 'answerQuestion'])->name('student.exams.answerQuestion');
+        //route exam end
+        Route::post('/exam-end', [App\Http\Controllers\Student\ExamController::class, 'endExam'])->name('student.exams.endExam');
+        //route exam result
+        Route::get('/exam-result/{exam_group_id}', [App\Http\Controllers\Student\ExamController::class, 'resultExam'])->name('student.exams.resultExam');
     });
 });

@@ -53,7 +53,7 @@
 
 <script>
 //import layout
-import LayoutAuth from '../../../../Layouts/Auth.vue';
+import LayoutAuth from '../../../Layouts/Auth.vue';
 
 //import Head from Inertia
 import {
