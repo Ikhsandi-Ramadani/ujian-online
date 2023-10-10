@@ -15,8 +15,9 @@ class QuestionBankController extends Controller
      */
     public function index()
     {
+        $teacher = auth('teacher')->user();
         //get Question
-        $questions = QuestionBank::when(request()->q, function ($questions) {
+        $questions = QuestionBank::where('teacher_id', $teacher->id)->when(request()->q, function ($questions) {
             $questions = $questions->where('name', 'like', '%' . request()->q . '%');
         })->latest()->paginate(5);
         //append query string to pagination links

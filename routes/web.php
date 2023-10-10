@@ -67,6 +67,12 @@ Route::prefix('teacher')->group(function () {
         //route resource question_bank
         Route::resource('/question_banks', QuestionBankController::class, ['as' => 'teacher']);
 
+        //custom route for enrolle create
+        Route::get('/exams/{exam}/enrolle/create', [ExamController::class, 'createEnrolle'])->name('teacher.exams.createEnrolle');
+        //custom route for enrolle store
+        Route::post('/exams/{exam}/enrolle/store', [ExamController::class, 'storeEnrolle'])->name('teacher.exams.storeEnrolle');
+        //custom route for enrolle destroy
+        Route::delete('/exams/{exam}/enrolle/{exam_question}/destroy', [ExamController::class, 'destroyEnrolle'])->name('teacher.exams.destroyEnrolle');
         //route resource exams
         Route::resource('/exams', ExamController::class, ['as' => 'teacher']);
 
@@ -78,6 +84,7 @@ Route::prefix('teacher')->group(function () {
         Route::post('/exam_sessions/{exam_session}/enrolle/store', [ExamSessionController::class, 'storeEnrolle'])->name('teacher.exam_sessions.storeEnrolle');
         //custom route for enrolle destroy
         Route::delete('/exam_sessions/{exam_session}/enrolle/{exam_group}/destroy', [ExamSessionController::class, 'destroyEnrolle'])->name('teacher.exam_sessions.destroyEnrolle');
+
         //route index reports
         Route::get('/reports', [ReportController::class, 'index'])->name('teacher.reports.index');
         //route index reports filter

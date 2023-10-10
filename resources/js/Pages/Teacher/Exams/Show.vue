@@ -44,12 +44,9 @@
                         <h5> <i class="fa fa-question-circle"></i> Soal Ujian</h5>
                         <hr>
 
-                        <Link :href="`/teacher/exams/${exam.id}/questions/create`"
+                        <Link :href="`/teacher/exams/${exam.id}/enrolle/create`"
                             class="btn btn-md btn-primary border-0 shadow me-2" type="button"><i
-                            class="fa fa-plus-circle"></i> Tambah</Link>
-                        <Link :href="`/teacher/exams/${exam.id}/questions/import`"
-                            class="btn btn-md btn-success border-0 shadow text-white" type="button"><i
-                            class="fa fa-file-excel"></i> Import</Link>
+                            class="fa fa-plus-circle"></i> Tambah Soal</Link>
 
                         <div class="table-responsive mt-3">
                             <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
@@ -66,25 +63,27 @@
                                         <td class="fw-bold text-center">{{ ++index + (exam.questions.current_page - 1) *
                                             exam.questions.per_page }}</td>
                                         <td>
-                                            <div class="fw-bold" v-html="question.question"></div>
+                                            <div class="fw-bold" v-html="question.question_bank.question"></div>
                                             <hr>
                                             <ol type="A">
-                                                <li v-html="question.option_1"
-                                                    :class="{ 'text-success fw-bold': question.answer == '1' }"></li>
-                                                <li v-html="question.option_2"
-                                                    :class="{ 'text-success fw-bold': question.answer == '2' }"></li>
-                                                <li v-html="question.option_3"
-                                                    :class="{ 'text-success fw-bold': question.answer == '3' }"></li>
-                                                <li v-html="question.option_4"
-                                                    :class="{ 'text-success fw-bold': question.answer == '4' }"></li>
-                                                <li v-html="question.option_5"
-                                                    :class="{ 'text-success fw-bold': question.answer == '5' }"></li>
+                                                <li v-html="question.question_bank.option_1"
+                                                    :class="{ 'text-success fw-bold': question.question_bank.answer == '1' }">
+                                                </li>
+                                                <li v-html="question.question_bank.option_2"
+                                                    :class="{ 'text-success fw-bold': question.question_bank.answer == '2' }">
+                                                </li>
+                                                <li v-html="question.question_bank.option_3"
+                                                    :class="{ 'text-success fw-bold': question.question_bank.answer == '3' }">
+                                                </li>
+                                                <li v-html="question.question_bank.option_4"
+                                                    :class="{ 'text-success fw-bold': question.question_bank.answer == '4' }">
+                                                </li>
+                                                <li v-html="question.question_bank.option_5"
+                                                    :class="{ 'text-success fw-bold': question.question_bank.answer == '5' }">
+                                                </li>
                                             </ol>
                                         </td>
                                         <td class="text-center">
-                                            <Link :href="`/teacher/exams/${exam.id}/questions/${question.id}/edit`"
-                                                class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i
-                                                class="fa fa-pencil-alt"></i></Link>
                                             <button @click.prevent="destroy(exam.id, question.id)"
                                                 class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>
@@ -155,7 +154,7 @@ export default {
                 .then((result) => {
                     if (result.isConfirmed) {
 
-                        Inertia.delete(`/teacher/exams/${exam_id}/questions/${question_id}/destroy`);
+                        Inertia.delete(`/teacher/exams/${exam_id}/enrolle/${question_id}/destroy`);
 
                         Swal.fire({
                             title: 'Deleted!',

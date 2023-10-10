@@ -8,6 +8,7 @@ use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Imports\QuestionsImport;
 use App\Http\Controllers\Controller;
+use App\Models\QuestionBank;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExamController extends Controller
@@ -38,11 +39,14 @@ class ExamController extends Controller
      */
     public function create()
     {
+        $teacher = auth('teacher')->user();
         //get lessons
         $lessons = Lesson::all();
+        $questions = QuestionBank::where('teacher_id', $teacher->id)->latest()->paginate(5);
         //render with inertia
         return inertia('Teacher/Exams/Create', [
-            'lessons' => $lessons
+            'lessons' => $lessons,
+            'questions' => $questions
         ]);
     }
 
@@ -90,7 +94,7 @@ class ExamController extends Controller
         //get exam
         $exam = Exam::with('lesson')->findOrFail($id);
         //get relation questions with pagination
-        $exam->setRelation('questions', $exam->questions()->paginate(5));
+        $exam->setRelation('questions', $exam->questions()->with('question_bank')->paginate(5));
         //render with inertia
         return inertia('Teacher/Exams/Show', [
             'exam' => $exam,
@@ -167,147 +171,67 @@ class ExamController extends Controller
     }
 
     /**
-     * createQuestion
+     * createEnrolle
      *
-     * @param  mixed $exam
+     * @param  mixed $exam_session
      * @return void
      */
-    public function createQuestion(Exam $exam)
+    public function createEnrolle(Exam $exam)
     {
+        $teacher = auth('teacher')->user();
+
+        //get students already enrolled
+        $questions_enrolled = Question::where('exam_id', $exam->id)->pluck('question_bank_id')->all();
+
+        //get questions
+        $questions = QuestionBank::whereNotIn('id', $questions_enrolled)->get();
+
         //render with inertia
-        return inertia('Teacher/Questions/Create', [
-            'exam' => $exam,
+        return inertia('Teacher/ExamQuestions/Create', [
+            'exam'          => $exam,
+            'questions'      => $questions,
         ]);
     }
 
     /**
-     * storeQuestion
+     * storeEnrolle
      *
-     * @param  mixed $request
      * @param  mixed $exam
      * @return void
      */
-    public function storeQuestion(Request $request, Exam $exam)
+    public function storeEnrolle(Request $request, Exam $exam)
     {
         //validate request
         $request->validate([
-            'question'          => 'required',
-            'option_1'          => 'required',
-            'option_2'          => 'required',
-            'option_3'          => 'required',
-            'option_4'          => 'required',
-            'option_5'          => 'required',
-            'answer'            => 'required',
+            'question_id'    => 'required',
         ]);
 
-        //create question
-        Question::create([
-            'exam_id'           => $exam->id,
-            'question'          => $request->question,
-            'option_1'          => $request->option_1,
-            'option_2'          => $request->option_2,
-            'option_3'          => $request->option_3,
-            'option_4'          => $request->option_4,
-            'option_5'          => $request->option_5,
-            'answer'            => $request->answer,
-        ]);
-
+        //create exam_group
+        foreach ($request->question_id as $question_id) {
+            //select question
+            $question = QuestionBank::findOrFail($question_id);
+            //create exam_group
+            Question::create([
+                'exam_id'               => $request->exam_id,
+                'question_bank_id'      => $question->id,
+            ]);
+        }
         //redirect
         return redirect()->route('teacher.exams.show', $exam->id);
     }
-
     /**
-     * editQuestion
+     * destroyEnrolle
      *
-     * @param  mixed $exam
-     * @param  mixed $question
+     * @param  mixed $exam_session
+     * @param  mixed $exam_group
      * @return void
      */
-    public function editQuestion(Exam $exam, Question $question)
-    {
-        //render with inertia
-        return inertia('Teacher/Questions/Edit', [
-            'exam' => $exam,
-            'question' => $question,
-        ]);
-    }
-
-    /**
-     * updateQuestion
-     *
-     * @param  mixed $request
-     * @param  mixed $exam
-     * @param  mixed $question
-     * @return void
-     */
-    public function updateQuestion(Request $request, Exam $exam, Question $question)
-    {
-        //validate request
-        $request->validate([
-            'question'          => 'required',
-            'option_1'          => 'required',
-            'option_2'          => 'required',
-            'option_3'          => 'required',
-            'option_4'          => 'required',
-            'option_5'          => 'required',
-            'answer'            => 'required',
-        ]);
-
-        //update question
-        $question->update([
-            'question'          => $request->question,
-            'option_1'          => $request->option_1,
-            'option_2'          => $request->option_2,
-            'option_3'          => $request->option_3,
-            'option_4'          => $request->option_4,
-            'option_5'          => $request->option_5,
-            'answer'            => $request->answer,
-        ]);
-
-        //redirect
-        return redirect()->route('teacher.exams.show', $exam->id);
-    }
-
-    /**
-     * destroyQuestion
-     *
-     * @param  mixed $exam
-     * @param  mixed $question
-     * @return void
-     */
-    public function destroyQuestion(Exam $exam, Question $question)
+    public function destroyEnrolle(Exam $exam, $id)
     {
         //delete question
+        $question = Question::findOrFail($id);
         $question->delete();
-        //redirect
-        return redirect()->route('teacher.exams.show', $exam->id);
-    }
 
-    /**
-     * import
-     *
-     * @return void
-     */
-    public function import(Exam $exam)
-    {
-        return inertia('Teacher/Questions/Import', [
-            'exam' => $exam
-        ]);
-    }
-
-    /**
-     * storeImport
-     *
-     * @param  mixed $request
-     * @return void
-     */
-    public function storeImport(Request $request, Exam $exam)
-    {
-        $this->validate($request, [
-            'file' => 'required|mimes:csv,xls,xlsx'
-        ]);
-        // import data
-        Excel::import(new QuestionsImport(), $request->file('file'));
         //redirect
         return redirect()->route('teacher.exams.show', $exam->id);
     }

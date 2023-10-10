@@ -26,7 +26,7 @@ class Question extends Model
         return $this->belongsTo(Exam::class);
     }
 
-    public function questionbank()
+    public function question_bank()
     {
         return $this->belongsTo(QuestionBank::class);
     }
