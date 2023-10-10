@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Exam;
+use App\Models\QuestionBank;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -17,17 +18,16 @@ class Question extends Model
      */
     protected $fillable = [
         'exam_id',
-        'question',
-        'option_1',
-        'option_2',
-        'option_3',
-        'option_4',
-        'option_5',
-        'answer',
+        'question_bank_id'
     ];
 
     public function exam()
     {
         return $this->belongsTo(Exam::class);
+    }
+
+    public function questionbank()
+    {
+        return $this->belongsTo(QuestionBank::class);
     }
 }

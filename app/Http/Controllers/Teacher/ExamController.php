@@ -68,7 +68,7 @@ class ExamController extends Controller
         Exam::create([
             'title'             => $request->title,
             'lesson_id'         => $request->lesson_id,
-            'teacher_id'        => auth()->user()->id,
+            'teacher_id'        => auth('teacher')->user()->id,
             'duration'          => $request->duration,
             'description'       => $request->description,
             'random_question'   => $request->random_question,
@@ -139,7 +139,7 @@ class ExamController extends Controller
         $exam->update([
             'title'             => $request->title,
             'lesson_id'         => $request->lesson_id,
-            'teacher_id'        => auth()->user()->id,
+            'teacher_id'        => auth('teacher')->user()->id,
             'duration'          => $request->duration,
             'description'       => $request->description,
             'random_question'   => $request->random_question,

@@ -15,6 +15,8 @@ use App\Http\Controllers\Teacher\ExamSessionController;
 use App\Http\Controllers\Student\LoginController as StudentLogin;
 use App\Http\Controllers\Student\DashboardController as StudentDashboard;
 use App\Http\Controllers\Student\ExamController as StudentExam;
+use App\Http\Controllers\Teacher\QuestionBankController;
+use App\Models\QuestionBank;
 
 //prefix "admin"
 Route::prefix('admin')->group(function () {
@@ -57,22 +59,17 @@ Route::prefix('teacher')->group(function () {
     Route::group(['middleware' => 'teacher'], function () {
         //route dashboard
         Route::get('/dashboard', TeacherDashboard::class)->name('teacher.dashboard');
+
+        //route question import
+        Route::get('/question_banks/import', [QuestionBankController::class, 'import'])->name('teacher.question_banks.import');
+        //route question import
+        Route::post('/question_banks/import', [QuestionBankController::class, 'storeImport'])->name('teacher.question_banks.storeImport');
+        //route resource question_bank
+        Route::resource('/question_banks', QuestionBankController::class, ['as' => 'teacher']);
+
         //route resource exams
         Route::resource('/exams', ExamController::class, ['as' => 'teacher']);
-        //custom route for create question exam
-        Route::get('/exams/{exam}/questions/create', [ExamController::class, 'createQuestion'])->name('teacher.exams.createQuestion');
-        //custom route for store question exam
-        Route::post('/exams/{exam}/questions/store', [ExamController::class, 'storeQuestion'])->name('teacher.exams.storeQuestion');
-        //custom route for edit question exam
-        Route::get('/exams/{exam}/questions/{question}/edit', [ExamController::class, 'editQuestion'])->name('teacher.exams.editQuestion');
-        //custom route for update question exam
-        Route::put('/exams/{exam}/questions/{question}/update', [ExamController::class, 'updateQuestion'])->name('teacher.exams.updateQuestion');
-        //custom route for destroy question exam
-        Route::delete('/exams/{exam}/questions/{question}/destroy', [ExamController::class, 'destroyQuestion'])->name('teacher.exams.destroyQuestion');
-        //route question import
-        Route::get('/exams/{exam}/questions/import', [ExamController::class, 'import'])->name('teacher.exam.questionImport');
-        //route question import
-        Route::post('/exams/{exam}/questions/import', [ExamController::class, 'storeImport'])->name('teacher.exam.questionStoreImport');
+
         //route resource exam_sessions
         Route::resource('/exam_sessions', ExamSessionController::class, ['as' => 'teacher']);
         //custom route for enrolle create

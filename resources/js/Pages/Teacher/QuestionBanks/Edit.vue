@@ -1,13 +1,15 @@
 <template>
     <Head>
-        <title>Tambah Soal Ujian - Aplikasi Ujian Online</title>
+        <title>Edit Soal - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
+                <Link :href="`/teacher/question_banks`" class="btn btn-md btn-primary border-0 shadow mb-3" type="button">
+                <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        <h5><i class="fa fa-question-circle"></i> Tambah Soal </h5>
+                        <h5><i class="fa fa-question-circle"></i> Edit Soal </h5>
                         <hr>
                         <form @submit.prevent="submit">
 
@@ -142,7 +144,7 @@ export default {
     //props
     props: {
         errors: Object,
-        exam: Object,
+        question: Object,
     },
 
     //inisialisasi composition API
@@ -150,20 +152,20 @@ export default {
 
         //define form with reactive
         const form = reactive({
-            question: '',
-            option_1: '',
-            option_2: '',
-            option_3: '',
-            option_4: '',
-            option_5: '',
-            answer: '',
+            question: props.question.question,
+            option_1: props.question.option_1,
+            option_2: props.question.option_2,
+            option_3: props.question.option_3,
+            option_4: props.question.option_4,
+            option_5: props.question.option_5,
+            answer: props.question.answer,
         });
 
         //method "submit"
         const submit = () => {
 
             //send data to server
-            Inertia.post(`/teacher/question_banks`, {
+            Inertia.put(`/teacher/question_banks/${props.question.id}`, {
                 //data
                 question: form.question,
                 option_1: form.option_1,
@@ -177,7 +179,7 @@ export default {
                     //show success alert
                     Swal.fire({
                         title: 'Success!',
-                        text: 'Soal Berhasil Disimpan!.',
+                        text: 'Soal Ujian Berhasil Dipdate!.',
                         icon: 'success',
                         showConfirmButton: false,
                         timer: 2000
@@ -191,7 +193,7 @@ export default {
         return {
             form,
             submit,
-        };
+        }
 
     }
 

@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Question;
+use App\Models\QuestionBank;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -15,8 +16,9 @@ class QuestionsImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        return new Question([
-            'exam_id'   => (int) $row['exam_id'],
+        $teacher = auth('teacher')->user();
+        return new QuestionBank([
+            'teacher_id'   => (int) $teacher->id,
             'question'  => $row['question'],
             'option_1'  => $row['option_1'],
             'option_2'  => $row['option_2'],

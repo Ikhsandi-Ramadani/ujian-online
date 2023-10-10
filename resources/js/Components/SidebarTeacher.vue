@@ -59,6 +59,21 @@
 
                 <li role="separator" class="dropdown-divider mt-2 mb-2 border-gray-700"></li>
 
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/teacher/question_bank') }">
+                    <Link href="/teacher/question_banks" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bank icon icon-xs me-2" viewBox="0 0 16 16">
+                                <path
+                                    d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.501.501 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89L8 0ZM3.777 3h8.447L8 1 3.777 3ZM2 6v7h1V6H2Zm2 0v7h2.5V6H4Zm3.5 0v7h1V6h-1Zm2 0v7H12V6H9.5ZM13 6v7h1V6h-1Zm2-1V4H1v1h14Zm-.39 9H1.39l-.25 1h13.72l-.25-1Z" />
+                            </svg>
+                        </span>
+                        <span class="sidebar-text">Bank Soal</span>
+                    </span>
+                    </Link>
+                </li>
+
                 <li class="nav-item" :class="{ 'active': $page.url.startsWith('/teacher/exams') }">
                     <Link href="/teacher/exams" class="nav-link d-flex justify-content-between">
                     <span>
