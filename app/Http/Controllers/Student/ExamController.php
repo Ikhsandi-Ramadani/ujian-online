@@ -77,9 +77,9 @@ class ExamController extends Controller
         foreach ($questions as $question) {
             //buat array jawaban / answer
             $options = [1, 2];
-            if (!empty($question->option_3)) $options[] = 3;
-            if (!empty($question->option_4)) $options[] = 4;
-            if (!empty($question->option_5)) $options[] = 5;
+            if (!empty($question->question_bank->option_3)) $options[] = 3;
+            if (!empty($question->question_bank->option_4)) $options[] = 4;
+            if (!empty($question->question_bank->option_5)) $options[] = 5;
             //acak jawaban / answer
             if ($exam_group->exam->random_answer == 'Y') {
                 shuffle($options);
@@ -99,7 +99,6 @@ class ExamController extends Controller
                 $answer->question_order = $question_order;
                 $answer->update();
             } else {
-
                 //buat jawaban default baru
                 Answer::create([
                     'exam_id'           => $exam_group->exam->id,
@@ -142,26 +141,27 @@ class ExamController extends Controller
         }
 
         //get all questions
-        $all_questions = Answer::with('question')
+        $all_questions = Answer::with('question', 'question.question_bank')
             ->where('student_id', auth()->guard('student')->user()->id)
             ->where('exam_id', $exam_group->exam->id)
             ->orderBy('question_order', 'ASC')
             ->get();
 
         //count all question answered
-        $question_answered = Answer::with('question')
+        $question_answered = Answer::with('question', 'question_bank')
             ->where('student_id', auth()->guard('student')->user()->id)
             ->where('exam_id', $exam_group->exam->id)
             ->where('answer', '!=', 0)
             ->count();
 
-
         //get question active
-        $question_active = Answer::with('question.exam')
+        $question_active = Answer::with('question.exam', 'question.question_bank')
             ->where('student_id', auth()->guard('student')->user()->id)
             ->where('exam_id', $exam_group->exam->id)
             ->where('question_order', $page)
             ->first();
+
+        // dd($question_active->answer_order);
 
         //explode atau pecah jawaban
         if ($question_active) {

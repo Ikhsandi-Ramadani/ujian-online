@@ -24,16 +24,16 @@
                     <div v-if="question_active !== null">
 
                         <div>
-                            <p v-html="question_active.question.question"></p>
+                            <p v-html="question_active.question.question_bank.question"></p>
                         </div>
 
                         <table>
                             <tbody>
                                 <tr v-for="(answer, index) in answer_order" :key="index">
                                     <td width="50" style="padding: 10px;">
-
+                                        <!-- <p>{{ $options[index] }}</p> -->
                                         <button v-if="answer == question_active.answer"
-                                            class="btn btn-info btn-sm w-100 shdaow">{{ options[index] }}</button>
+                                            class="btn btn-info btn-sm w-100 shdaow">{{ options[index] }} </button>
 
                                         <button v-else
                                             @click.prevent="submitAnswer(question_active.question.exam.id, question_active.question.id, answer)"
@@ -41,7 +41,7 @@
 
                                     </td>
                                     <td style="padding: 10px;">
-                                        <p v-html="question_active.question['option_' + answer]"></p>
+                                        <p v-html="question_active.question.question_bank['option_' + answer]"> </p>
                                     </td>
                                 </tr>
                             </tbody>
