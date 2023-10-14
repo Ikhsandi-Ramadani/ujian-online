@@ -228,7 +228,7 @@ class ExamController extends Controller
 
         //get question
         $question = Question::find($request->question_id);
-
+ 
         //cek apakah jawaban sudah benar
         if ($question->question_bank->answer == $request->answer) {
 
