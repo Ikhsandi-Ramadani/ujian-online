@@ -9,6 +9,7 @@ use App\Models\ExamGroup;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
+use App\Models\QuestionBank;
 
 class ExamController extends Controller
 {
@@ -66,15 +67,17 @@ class ExamController extends Controller
         //cek apakah questions / soal ujian di random
         if ($exam_group->exam->random_question == 'Y') {
             //get questions / soal ujian
-            $questions = Question::where('exam_id', $exam_group->exam->id)->inRandomOrder()->get();
+            // $data = Question::where('exam_id', $exam_group->exam->id)->with('question_bank')->inRandomOrder()->get();
+            $questions = Question::where('exam_id', $exam_group->exam->id)->with('question_bank')->inRandomOrder()->get();
         } else {
             //get questions / soal ujian
-            $questions = Question::where('exam_id', $exam_group->exam->id)->get();
+            $questions = Question::where('exam_id', $exam_group->exam->id)->with('question_bank')->get();
         }
         //define pilihan jawaban default
         $question_order = 1;
 
         foreach ($questions as $question) {
+            // dd($question);
             //buat array jawaban / answer
             $options = [1, 2];
             if (!empty($question->question_bank->option_3)) $options[] = 3;
@@ -141,14 +144,14 @@ class ExamController extends Controller
         }
 
         //get all questions
-        $all_questions = Answer::with('question', 'question.question_bank')
+        $all_questions = Answer::with('question.question_bank')
             ->where('student_id', auth()->guard('student')->user()->id)
             ->where('exam_id', $exam_group->exam->id)
             ->orderBy('question_order', 'ASC')
             ->get();
 
         //count all question answered
-        $question_answered = Answer::with('question', 'question_bank')
+        $question_answered = Answer::with('question.question_bank')
             ->where('student_id', auth()->guard('student')->user()->id)
             ->where('exam_id', $exam_group->exam->id)
             ->where('answer', '!=', 0)
@@ -160,8 +163,6 @@ class ExamController extends Controller
             ->where('exam_id', $exam_group->exam->id)
             ->where('question_order', $page)
             ->first();
-
-        // dd($question_active->answer_order);
 
         //explode atau pecah jawaban
         if ($question_active) {
@@ -229,7 +230,7 @@ class ExamController extends Controller
         $question = Question::find($request->question_id);
 
         //cek apakah jawaban sudah benar
-        if ($question->answer == $request->answer) {
+        if ($question->question_bank->answer == $request->answer) {
 
             //jawaban benar
             $result = 'Y';
