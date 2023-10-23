@@ -26,6 +26,7 @@ class Exam extends Model
         'random_question',
         'random_answer',
         'show_answer',
+        'kkm'
     ];
 
     public function lesson()

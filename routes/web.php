@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\LessonController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
+use App\Http\Controllers\Student\AuthController;
 //Teacher
 use App\Http\Controllers\Teacher\DashboardController as TeacherDashboard;
 use App\Http\Controllers\Teacher\ExamController;
@@ -95,17 +96,15 @@ Route::prefix('teacher')->group(function () {
 });
 
 //route homepage
-Route::get('/', function () {
-    //cek session student
-    if (auth()->guard('student')->check()) {
-        return redirect()->route('student.dashboard');
-    }
-    //return view login
-    return \Inertia\Inertia::render('Student/Login/Index');
-});
+
 
 //login students
-Route::post('/students/login', StudentLogin::class)->name('student.login');
+Route::get('/', [AuthController::class, 'login']);
+Route::post('/students/login', [AuthController::class, 'postLogin'])->name('student.login');
+//register students
+Route::get('/register', [AuthController::class, 'register']);
+Route::post('/students/register', [AuthController::class, 'postRegister'])->name('student.register');
+
 //prefix "student"
 Route::prefix('student')->group(function () {
 

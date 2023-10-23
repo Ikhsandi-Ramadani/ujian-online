@@ -39,20 +39,13 @@
                                 {{ errors.password }}
                             </div>
                         </div>
-
-                        <div class="d-flex justify-content-between align-items-top mb-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="remember">
-                                <label class="form-check-label mb-0" for="remember">
-                                    Remember me
-                                </label>
-                            </div>
-                        </div>
-
                     </div>
 
                     <div class="d-grid">
                         <button type="submit" class="btn btn-gray-800">LOGIN</button>
+                    </div>
+                    <div class="text-center mt-2">
+                        <p>Belum punya akun ? <a href="/register">Daftar disini</a></p>
                     </div>
                 </form>
             </div>

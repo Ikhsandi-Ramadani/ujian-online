@@ -38,6 +38,14 @@
                                     <td class="fw-bold">Selesai</td>
                                     <td>{{ data.exam_group.exam_session.end_time }}</td>
                                 </tr>
+                                <tr>
+                                    <td class="fw-bold">KKM</td>
+                                    <td>{{ data.exam_group.exam.kkm }}</td>
+                                </tr>
+                                <tr v-if="data.grade.grade != null">
+                                    <td class="fw-bold">Nilai</td>
+                                    <td>{{ data.grade.grade }}</td>
+                                </tr>
                             </thead>
                         </table>
                     </div>
@@ -73,6 +81,13 @@
                                     Terlewat</button>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- ulangi ujian -->
+                    <div v-else-if="data.exam_group.exam.kkm > data.grade.grade">
+                        <Link :href="`/student/exam-confirmation/${data.exam_group.id}`"
+                            class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
+                        </Link>
                     </div>
 
                     <div v-else>

@@ -67,6 +67,7 @@ class ExamController extends Controller
             'random_question'   => 'required',
             'random_answer'     => 'required',
             'show_answer'       => 'required',
+            'kkm'               => 'required'
         ]);
         //create exam
         Exam::create([
@@ -78,6 +79,7 @@ class ExamController extends Controller
             'random_question'   => $request->random_question,
             'random_answer'     => $request->random_answer,
             'show_answer'       => $request->show_answer,
+            'kkm'               => $request->kkm
         ]);
         //redirect
         return redirect()->route('teacher.exams.index');
@@ -138,6 +140,7 @@ class ExamController extends Controller
             'random_question'   => 'required',
             'random_answer'     => 'required',
             'show_answer'       => 'required',
+            'kkm'               => 'required'
         ]);
         //update exam
         $exam->update([
@@ -149,6 +152,7 @@ class ExamController extends Controller
             'random_question'   => $request->random_question,
             'random_answer'     => $request->random_answer,
             'show_answer'       => $request->show_answer,
+            'kkm'               => $request->kkm
         ]);
         //redirect
         return redirect()->route('teacher.exams.index');

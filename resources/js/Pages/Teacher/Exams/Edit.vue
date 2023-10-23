@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Mata Pelajaran</label>
+                                        <label>Mata Kuliah</label>
                                         <select class="form-select" v-model="form.lesson_id">
                                             <option v-for="(lesson, index) in lessons" :key="index" :value="lesson.id">{{
                                                 lesson.title }}</option>
@@ -52,7 +52,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-4">
                                         <label>Acak Soal</label>
                                         <select class="form-select" v-model="form.random_question">
@@ -64,7 +64,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-4">
                                         <label>Acak Jawaban</label>
                                         <select class="form-select" v-model="form.random_answer">
@@ -76,10 +76,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-4">
                                         <label>Tampilkan Hasil</label>
                                         <select class="form-select" v-model="form.show_answer">
@@ -88,6 +85,19 @@
                                         </select>
                                         <div v-if="errors.show_answer" class="alert alert-danger mt-2">
                                             {{ errors.show_answer }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <label>Kriteria Ketuntasan Minimal (KKM)</label>
+                                        <input type="number" min="1" class="form-control"
+                                            placeholder="Kriteria Ketuntasan Minimal (KKM)" v-model="form.kkm">
+                                        <div v-if="errors.kkm" class="alert alert-danger mt-2">
+                                            {{ errors.kkm }}
                                         </div>
                                     </div>
                                 </div>
@@ -166,6 +176,7 @@ export default {
             random_question: props.exam.random_question,
             random_answer: props.exam.random_answer,
             show_answer: props.exam.show_answer,
+            kkm: props.exam.kkm
         });
 
         //method "submit"
@@ -181,6 +192,7 @@ export default {
                 random_question: form.random_question,
                 random_answer: form.random_answer,
                 show_answer: form.show_answer,
+                kkm: form.kkm
             }, {
                 onSuccess: () => {
                     //show success alert

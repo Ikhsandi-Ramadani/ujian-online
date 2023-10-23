@@ -53,6 +53,12 @@
                         <Link :href="`/student/exam-start/${exam_group.id}`"
                             class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Mulai</Link>
                     </div>
+                    <!-- ulangi ujian -->
+                    <div v-else-if="exam_group.exam.kkm > grade.grade">
+                        <Link :href="`/student/exam-start/${exam_group.id}`"
+                            class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
+                        </Link>
+                    </div>
                     <div v-else>
                         <button class="btn btn-md btn-primary border-0 shadow w-100 mt-2" disabled>Sudah
                             Mengerjakan</button>
