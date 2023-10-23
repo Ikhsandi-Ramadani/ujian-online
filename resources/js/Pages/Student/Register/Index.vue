@@ -67,7 +67,7 @@
 
 <script>
 //import layout
-import LayoutStudent from '../../../Layouts/Student.vue';
+import LayoutStudent from '../../../Layouts/Student_2.vue';
 
 //import Head from Inertia
 import {

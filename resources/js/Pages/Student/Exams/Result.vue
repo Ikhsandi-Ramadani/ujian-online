@@ -56,11 +56,11 @@
                 </div>
             </div>
 
-            <div class="mt-2">
+            <!-- <div class="mt-2">
                 <Link :href="`/student/dashboard`"
                     class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Kembali ke Dashboard
                 </Link>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

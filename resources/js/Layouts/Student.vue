@@ -1,35 +1,46 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark navbar-theme-primary mb-4 shadow">
-        <div class="container position-relative">
-            <Link class="navbar-brand me-lg-3" href="/student/dashboard">
-            <img class="navbar-brand-dark" src="/assets/images/logo3.png" style="height:70px">
-            </Link>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                </ul>
-                <form class="d-flex" v-if="$page.props.auth.student">
-                    <Link href="/logout" method="POST" class="btn btn-secondary shadow" as="button">LOGOUT</Link>
-                </form>
-            </div>
+    <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
+        <a class="navbar-brand me-lg-5" href="/">
+            <img class="navbar-brand-dark" src="" />
+            <img class="navbar-brand-light" src="" />
+        </a>
+        <div class="d-flex align-items-center">
+            <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
     </nav>
-    <div class="container">
+
+    <!-- sidebar -->
+    <Sidebar />
+
+    <main class="content">
+
+        <!-- navbar -->
+        <Navbar />
+
+        <!-- content -->
         <slot />
-    </div>
+
+    </main>
 </template>
 
 <script>
+//import navbar
+import Navbar from "../Components/NavbarStudent.vue";
 
-//import Link
-import { Link } from '@inertiajs/inertia-vue3';
+//import sidebar
+import Sidebar from '../Components/SidebarStudent.vue';
 
 export default {
 
     //register components
     components: {
-        Link
+        Navbar,
+        Sidebar
     },
-
 }
 
 </script>

@@ -95,9 +95,6 @@ Route::prefix('teacher')->group(function () {
     });
 });
 
-//route homepage
-
-
 //login students
 Route::get('/', [AuthController::class, 'login']);
 Route::post('/students/login', [AuthController::class, 'postLogin'])->name('student.login');
@@ -113,19 +110,20 @@ Route::prefix('student')->group(function () {
 
         //route dashboard
         Route::get('/dashboard', StudentDashboard::class)->name('student.dashboard');
+        Route::get('/exams', [StudentExam::class, 'index'])->name('student.exams.index');
         //route exam confirmation
         Route::get('/exam-confirmation/{id}', [StudentExam::class, 'confirmation'])->name('student.exams.confirmation');
         //route exam start
-        Route::get('/exam-start/{id}', [App\Http\Controllers\Student\ExamController::class, 'startExam'])->name('student.exams.startExam');
+        Route::get('/exam-start/{id}', [StudentExam::class, 'startExam'])->name('student.exams.startExam');
         //route exam show
-        Route::get('/exam/{id}/{page}', [App\Http\Controllers\Student\ExamController::class, 'show'])->name('student.exams.show');
+        Route::get('/exam/{id}/{page}', [StudentExam::class, 'show'])->name('student.exams.show');
         //route exam update duration
-        Route::put('/exam-duration/update/{grade_id}', [App\Http\Controllers\Student\ExamController::class, 'updateDuration'])->name('student.exams.update_duration');
+        Route::put('/exam-duration/update/{grade_id}', [StudentExam::class, 'updateDuration'])->name('student.exams.update_duration');
         //route answer question
-        Route::post('/exam-answer', [App\Http\Controllers\Student\ExamController::class, 'answerQuestion'])->name('student.exams.answerQuestion');
+        Route::post('/exam-answer', [StudentExam::class, 'answerQuestion'])->name('student.exams.answerQuestion');
         //route exam end
-        Route::post('/exam-end', [App\Http\Controllers\Student\ExamController::class, 'endExam'])->name('student.exams.endExam');
+        Route::post('/exam-end', [StudentExam::class, 'endExam'])->name('student.exams.endExam');
         //route exam result
-        Route::get('/exam-result/{exam_group_id}', [App\Http\Controllers\Student\ExamController::class, 'resultExam'])->name('student.exams.resultExam');
+        Route::get('/exam-result/{exam_group_id}', [StudentExam::class, 'resultExam'])->name('student.exams.resultExam');
     });
 });
