@@ -14,12 +14,12 @@
     </nav>
 
     <!-- sidebar -->
-    <Sidebar />
+    <!-- <Sidebar /> -->
+    <Navbar />
 
-    <main class="content">
+    <main class="container">
 
         <!-- navbar -->
-        <Navbar />
 
         <!-- content -->
         <slot />

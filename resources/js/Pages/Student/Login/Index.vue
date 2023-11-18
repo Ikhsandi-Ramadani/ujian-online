@@ -5,6 +5,9 @@
     <div class="row justify-content-center mt-5">
         <div class="col-md-5">
             <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                <div class="text-center">
+                    <img class="" src="/assets/images/logo2.png" height="100">
+                </div>
                 <div v-if="errors.message" class="alert alert-danger mt-2">
                     {{ errors.message }}
                 </div>
@@ -62,6 +65,9 @@ import {
     Head
 } from '@inertiajs/inertia-vue3';
 
+//import Link
+import { Link } from '@inertiajs/inertia-vue3';
+
 //import reactive
 import {
     reactive
@@ -79,7 +85,8 @@ export default {
 
     //register component
     components: {
-        Head
+        Head,
+        Link
     },
 
     //props

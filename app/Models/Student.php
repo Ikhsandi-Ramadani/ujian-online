@@ -19,6 +19,7 @@ class Student extends Authenticatable
         'nim',
         'name',
         'password',
-        'gender'
+        'gender',
+        'status'
     ];
 }

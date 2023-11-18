@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark navbar-theme-primary mb-4 shadow">
+    <!-- <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark navbar-theme-primary mb-4 shadow">
         <div class="container position-relative">
             <Link class="navbar-brand me-lg-3" href="/student/dashboard">
             <img class="navbar-brand-dark" src="/assets/images/logo3.png" style="height:70px">
@@ -12,7 +12,7 @@
                 </form>
             </div>
         </div>
-    </nav>
+    </nav> -->
     <div class="container">
         <slot />
     </div>

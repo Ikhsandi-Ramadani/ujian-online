@@ -11,7 +11,7 @@ class AuthController extends Controller
     public function login()
     {
         //cek session student
-        if (auth()->guard('student')->check()) {
+        if (auth()->guard('student')->check() && auth()->guard('student')->status == 'approve') {
             return redirect()->route('student.dashboard');
         }
         //return view login
@@ -34,6 +34,8 @@ class AuthController extends Controller
 
         if (!$student) {
             return redirect()->back()->with('error', 'NIM atau Password salah');
+        } elseif ($student->status !== 'approve') {
+            return redirect()->back()->with('error', 'Akun Belum Di Approve');
         }
 
         //login the user

@@ -49,6 +49,7 @@
                                         <th class="border-0">Nama</th>
                                         <th class="border-0">Jenis Kelamin</th>
                                         <th class="border-0">Password</th>
+                                        <th class="border-0">Status</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -61,6 +62,14 @@
                                         <td>{{ student.name }}</td>
                                         <td class="text-center">{{ student.gender }}</td>
                                         <td>{{ student.password }}</td>
+                                        <td v-if="student.status == 'pending'"><span
+                                                class="badge bg-warning text-black text-capitalize">{{
+                                                    student.status }}</span></td>
+                                        <td v-else-if="student.status == 'approve'"><span
+                                                class="badge bg-success text-black text-capitalize">{{
+                                                    student.status }}</span></td>
+                                        <td v-else><span class="badge bg-danger text-black text-capitalize">{{
+                                            student.status }}</span></td>
                                         <td class="text-center">
                                             <Link :href="`/admin/students/${student.id}/edit`"
                                                 class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i

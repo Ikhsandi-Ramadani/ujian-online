@@ -49,7 +49,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-4">
                                         <label>Password</label>
                                         <input type="password" class="form-control" placeholder="Masukkan Password"
@@ -59,11 +59,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-4">
                                         <label>Konfirmasi Password</label>
                                         <input type="password" class="form-control"
                                             placeholder="Masukkan Konfirmasi Password" v-model="form.password_confirmation">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-4">
+                                        <label>Konfirmasi</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input " type="radio" v-model="form.status"
+                                                id="inlineRadio1" value="approve">
+                                            <label class="form-check-label" for="inlineRadio1">Disetujui</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input " type="radio" v-model="form.status"
+                                                id="inlineRadio2" value="rejected">
+                                            <label class="form-check-label" for="inlineRadio2">Ditolak</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +139,8 @@ export default {
             name: props.student.name,
             gender: props.student.gender,
             password: '',
-            password_confirmation: ''
+            password_confirmation: '',
+            status: props.student.status,
         });
 
         //method "submit"
@@ -137,7 +153,8 @@ export default {
                 name: form.name,
                 gender: form.gender,
                 password: form.password,
-                password_confirmation: form.password_confirmation
+                password_confirmation: form.password_confirmation,
+                status: form.status
             }, {
                 onSuccess: () => {
                     //show success alert

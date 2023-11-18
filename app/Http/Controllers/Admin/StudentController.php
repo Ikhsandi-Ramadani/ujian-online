@@ -96,7 +96,8 @@ class StudentController extends Controller
             'name'          => 'required|string|max:255',
             'nim'          => 'required|unique:students,nim,' . $student->id,
             'gender'        => 'required|string',
-            'password'      => 'confirmed'
+            'password'      => 'confirmed',
+            'status'        => 'required'
         ]);
         //check passwordy
         if ($request->password == "") {
@@ -105,6 +106,7 @@ class StudentController extends Controller
                 'name'          => $request->name,
                 'nim'          => $request->nim,
                 'gender'        => $request->gender,
+                'status'        => $request->status,
             ]);
         } else {
             //update student with password
@@ -113,6 +115,7 @@ class StudentController extends Controller
                 'nim'          => $request->nim,
                 'gender'        => $request->gender,
                 'password'      => $request->password,
+                'status'      => $request->status,
             ]);
         }
         //redirect
