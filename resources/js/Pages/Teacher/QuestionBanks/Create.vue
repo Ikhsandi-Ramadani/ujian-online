@@ -5,12 +5,14 @@
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
+                <Link :href="`/teacher/question_groups/${question_group.id}/question_banks`"
+                    class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
+                    class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
                         <h5><i class="fa fa-question-circle"></i> Tambah Soal </h5>
                         <hr>
                         <form @submit.prevent="submit">
-
                             <div class="table-responsive mb-4">
                                 <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
                                     <tbody>
@@ -96,7 +98,8 @@
                             </div>
 
                             <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button>
-                            <button type="reset" class="btn btn-md btn-warning border-0 shadow">Reset</button>
+                            <button type="reset" class="btn btn-md btn-warning border-0 shadow me-2">Reset</button>
+
                         </form>
                     </div>
                 </div>
@@ -143,6 +146,7 @@ export default {
     props: {
         errors: Object,
         exam: Object,
+        question_group: Object
     },
 
     //inisialisasi composition API
@@ -163,7 +167,7 @@ export default {
         const submit = () => {
 
             //send data to server
-            Inertia.post(`/teacher/question_banks`, {
+            Inertia.post(`/teacher/question_groups/${props.question_group.id}/question_banks`, {
                 //data
                 question: form.question,
                 option_1: form.option_1,

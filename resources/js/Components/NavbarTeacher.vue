@@ -36,8 +36,8 @@
                         </Link>
                     </li>
 
-                    <li class="nav-item" :class="{ 'active': $page.url.startsWith('/teacher/question_bank') }">
-                        <Link href="/teacher/question_banks" class="nav-link d-flex justify-content-between">
+                    <li class="nav-item" :class="{ 'active': $page.url.startsWith('/teacher/question_group') }">
+                        <Link href="/teacher/question_groups" class="nav-link d-flex justify-content-between">
                         <span>
                             <span class="sidebar-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

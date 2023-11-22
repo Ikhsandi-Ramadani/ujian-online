@@ -17,6 +17,7 @@ class QuestionBank extends Model
      */
     protected $fillable = [
         'teacher_id',
+        'question_group_id',
         'question',
         'option_1',
         'option_2',
@@ -29,5 +30,9 @@ class QuestionBank extends Model
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
+    }
+    public function question_group()
+    {
+        return $this->belongsTo(QuestionGroup::class);
     }
 }

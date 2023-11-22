@@ -188,7 +188,7 @@ class ExamController extends Controller
         $questions_enrolled = Question::where('exam_id', $exam->id)->pluck('question_bank_id')->all();
 
         //get questions
-        $questions = QuestionBank::whereNotIn('id', $questions_enrolled)->get();
+        $questions = QuestionBank::whereNotIn('id', $questions_enrolled)->with('question_group')->orderBy('question_group_id', 'desc')->get();
 
         //render with inertia
         return inertia('Teacher/ExamQuestions/Create', [

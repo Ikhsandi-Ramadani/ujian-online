@@ -6,6 +6,7 @@ use App\Models\QuestionBank;
 use Illuminate\Http\Request;
 use App\Imports\QuestionsImport;
 use App\Http\Controllers\Controller;
+use App\Models\QuestionGroup;
 use Maatwebsite\Excel\Facades\Excel;
 
 class QuestionBankController extends Controller
@@ -13,11 +14,12 @@ class QuestionBankController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
         $teacher = auth('teacher')->user();
+        $question_group = QuestionGroup::findOrFail($id);
         //get Question
-        $questions = QuestionBank::where('teacher_id', $teacher->id)->when(request()->q, function ($questions) {
+        $questions = QuestionBank::where('teacher_id', $teacher->id)->where('question_group_id', $question_group->id)->when(request()->q, function ($questions) {
             $questions = $questions->where('name', 'like', '%' . request()->q . '%');
         })->latest()->paginate(5);
         //append query string to pagination links
@@ -25,22 +27,27 @@ class QuestionBankController extends Controller
         //render with inertia
         return inertia('Teacher/QuestionBanks/Index', [
             'questions' => $questions,
+            'question_group' => $question_group,
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
+        $question_group = QuestionGroup::findorfail($id);
+        // dd($question_group);
         //render with inertia
-        return inertia('Teacher/QuestionBanks/Create');
+        return inertia('Teacher/QuestionBanks/Create', [
+            'question_group' => $question_group
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         //validate request
         $request->validate([
@@ -52,10 +59,12 @@ class QuestionBankController extends Controller
             'option_5'          => 'required',
             'answer'            => 'required',
         ]);
-
+        $question_group = QuestionGroup::findorfail($id);
+        // dd($question_group);
         //create question
         QuestionBank::create([
             'teacher_id'        => auth('teacher')->user()->id,
+            'question_group_id' => $question_group->id,
             'question'          => $request->question,
             'option_1'          => $request->option_1,
             'option_2'          => $request->option_2,
@@ -66,7 +75,7 @@ class QuestionBankController extends Controller
         ]);
 
         //redirect
-        return redirect()->route('teacher.question_banks.index');
+        return redirect()->route('teacher.question_banks.index', $question_group->id);
     }
 
     /**
@@ -80,19 +89,21 @@ class QuestionBankController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($question_group, $question_bank)
     {
-        $question = QuestionBank::findOrFail($id);
+        $question_group = QuestionGroup::findorfail($question_group);
+        $question = QuestionBank::findOrFail($question_bank);
         //render with inertia
         return inertia('Teacher/QuestionBanks/Edit', [
             'question' => $question,
+            'question_group' => $question_group,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, QuestionBank $questionBank)
+    public function update(Request $request, $question_group, $question_bank)
     {
         //validate request
         $request->validate([
@@ -104,9 +115,10 @@ class QuestionBankController extends Controller
             'option_5'          => 'required',
             'answer'            => 'required',
         ]);
-
+        $question_group = QuestionGroup::findorfail($question_group);
+        $question = QuestionBank::findOrFail($question_bank);
         //update question
-        $questionBank->update([
+        $question->update([
             'question'          => $request->question,
             'option_1'          => $request->option_1,
             'option_2'          => $request->option_2,
@@ -117,19 +129,20 @@ class QuestionBankController extends Controller
         ]);
 
         //redirect
-        return redirect()->route('teacher.question_banks.index');
+        return redirect()->route('teacher.question_banks.index', $question_group->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($question_group, $question_bank)
     {
-        $question = QuestionBank::findOrFail($id);
+        $question_group = QuestionGroup::findorfail($question_group);
+        $question = QuestionBank::findOrFail($question_bank);
         //delete question
         $question->delete();
         //redirect
-        return redirect()->route('teacher.question_banks.index');
+        return redirect()->route('teacher.question_banks.index', $question_group->id);
     }
 
     /**

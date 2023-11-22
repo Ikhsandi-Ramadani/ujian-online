@@ -21,6 +21,7 @@
                                                 <input type="checkbox" v-model="form.allSelected" @change="selectAll" />
                                             </th>
                                             <th class="border-0">Soal</th>
+                                            <th class="border-0">Kelompok Soal</th>
                                         </tr>
                                     </thead>
                                     <div class="mt-3"></div>
@@ -46,6 +47,7 @@
                                                         :class="{ 'text-success fw-bold': question.answer == '5' }"></li>
                                                 </ol>
                                             </td>
+                                            <td class="fw-bold">{{ question.question_group.name }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -17,6 +17,7 @@ use App\Http\Controllers\Student\LoginController as StudentLogin;
 use App\Http\Controllers\Student\DashboardController as StudentDashboard;
 use App\Http\Controllers\Student\ExamController as StudentExam;
 use App\Http\Controllers\Teacher\QuestionBankController;
+use App\Http\Controllers\Teacher\QuestionGroupController;
 use App\Models\QuestionBank;
 
 //prefix "admin"
@@ -65,8 +66,11 @@ Route::prefix('teacher')->group(function () {
         Route::get('/question_banks/import', [QuestionBankController::class, 'import'])->name('teacher.question_banks.import');
         //route question import
         Route::post('/question_banks/import', [QuestionBankController::class, 'storeImport'])->name('teacher.question_banks.storeImport');
+
+        //route resource question_group
+        Route::resource('/question_groups', QuestionGroupController::class, ['as' => 'teacher']);
         //route resource question_bank
-        Route::resource('/question_banks', QuestionBankController::class, ['as' => 'teacher']);
+        Route::resource('/question_groups/{question_group_id}/question_banks', QuestionBankController::class, ['as' => 'teacher']);
 
         //custom route for enrolle create
         Route::get('/exams/{exam}/enrolle/create', [ExamController::class, 'createEnrolle'])->name('teacher.exams.createEnrolle');

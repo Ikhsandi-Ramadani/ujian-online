@@ -9,17 +9,23 @@
                     <div class="col-md-5 col-12 mb-2">
                         <div class="row">
                             <div class="col-md-6 col-12 mb-2">
-                                <Link href="/teacher/question_banks/create"
+                                <Link :href="`/teacher/question_groups/${question_group.id}/question_banks/create`"
                                     class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
                                     class="fa fa-plus-circle"></i>
                                 Tambah</Link>
                             </div>
                             <div class="col-md-6 col-12 mb-2">
-                                <Link href="/teacher/question_banks/import"
+                                <Link :href="`/teacher/question_groups`"
+                                    class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
+                                    class="fa fa-long-arrow-alt-left"></i>
+                                Kembali</Link>
+                            </div>
+                            <!-- <div class="col-md-6 col-12 mb-2">
+                                <Link :href="`/teacher/question_groups/${question_group.id}/question_banks/import`"
                                     class="btn btn-md btn-success border-0 shadow w-100 text-white" type="button"><i
                                     class="fa fa-file-excel"></i>
                                 Import</Link>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="col-md-7 col-12 mb-2">
@@ -41,7 +47,8 @@
 
                 <div class="card border-0 shadow">
                     <div class="card-body">
-
+                        <h5>Soal {{ question_group.name }}</h5>
+                        <hr>
                         <div class="table-responsive mt-3">
                             <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
                                 <thead class="thead-dark">
@@ -73,10 +80,11 @@
                                             </ol>
                                         </td>
                                         <td class="text-center">
-                                            <Link :href="`/teacher/question_banks/${question.id}/edit`"
+                                            <Link
+                                                :href="`/teacher/question_groups/${question_group.id}/question_banks/${question.id}/edit`"
                                                 class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i
                                                 class="fa fa-pencil-alt"></i></Link>
-                                            <button @click.prevent="destroy(question.id)"
+                                            <button @click.prevent="destroy(question_group.id, question.id)"
                                                 class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
@@ -132,6 +140,7 @@ export default {
     props: {
         errors: Object,
         questions: Object,
+        question_group: Object,
     },
 
     //inisialisasi composition API
@@ -142,7 +151,7 @@ export default {
 
         //define method search
         const handleSearch = () => {
-            Inertia.get('/teacher/question_banks', {
+            Inertia.get(`/teacher/question_groups/${question_group.id}/question_banks`, {
 
                 //send params "q" with value from state "search"
                 q: search.value,
@@ -150,7 +159,7 @@ export default {
         }
 
         //define method destroy
-        const destroy = (question_id) => {
+        const destroy = (question_group_id, question_id) => {
             Swal.fire({
                 title: 'Apakah Anda yakin?',
                 text: "Anda tidak akan dapat mengembalikan ini!",
@@ -163,7 +172,7 @@ export default {
                 .then((result) => {
                     if (result.isConfirmed) {
 
-                        Inertia.delete(`/teacher/question_banks/${question_id}`);
+                        Inertia.delete(`/teacher/question_groups/${question_group_id}/question_banks/${question_id}`);
 
                         Swal.fire({
                             title: 'Deleted!',

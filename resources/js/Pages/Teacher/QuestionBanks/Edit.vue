@@ -5,7 +5,8 @@
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
-                <Link :href="`/teacher/question_banks`" class="btn btn-md btn-primary border-0 shadow mb-3" type="button">
+                <Link :href="`/teacher/question_groups/${question_group.id}/question_banks`"
+                    class="btn btn-md btn-primary border-0 shadow mb-3" type="button">
                 <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
@@ -145,6 +146,8 @@ export default {
     props: {
         errors: Object,
         question: Object,
+        question_group: Object,
+
     },
 
     //inisialisasi composition API
@@ -165,7 +168,7 @@ export default {
         const submit = () => {
 
             //send data to server
-            Inertia.put(`/teacher/question_banks/${props.question.id}`, {
+            Inertia.put(`/teacher/question_groups/${props.question_group.id}/question_banks/${props.question.id}`, {
                 //data
                 question: form.question,
                 option_1: form.option_1,

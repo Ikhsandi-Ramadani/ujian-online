@@ -1,34 +1,30 @@
 <template>
     <Head>
-        <title>Import Soal - Aplikasi Ujian Online</title>
+        <title>Edit Kelompok Soal - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
-                <Link :href="`/teacher/question_groups/${question_group.id}/question_banks`"
-                    class="btn btn-md btn-primary border-0 shadow mb-3 me-3" type="button"><i
+                <Link href="/teacher/question_group" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
                     class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
-                <a href="/assets/excel/questions.xls" target="_blank"
-                    class="btn btn-md btn-success border-0 shadow mb-3 text-white" type="button"><i
-                        class="fa fa-file-excel me-2"></i> Contoh Format</a>
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        <h5><i class="fa fa-question-circle"></i> Import Soal</h5>
+                        <h5><i class="fa fa-bookmark"></i> Edit Kuliah</h5>
                         <hr>
                         <form @submit.prevent="submit">
 
                             <div class="mb-4">
-                                <label>File Excel</label>
-                                <input type="file" class="form-control" @input="form.file = $event.target.files[0]">
-                                <div v-if="errors.file" class="alert alert-danger mt-2">
-                                    {{ errors.file }}
+                                <label>Nama Kuliah</label>
+                                <input type="text" class="form-control" placeholder="Masukkan Nama Kuliah"
+                                    v-model="form.name">
+
+                                <div v-if="errors.name" class="alert alert-danger mt-2">
+                                    {{ errors.name }}
                                 </div>
-                                <div v-if="errors[0]" class="alert alert-danger mt-2">
-                                    {{ errors[0] }}
-                                </div>
+
                             </div>
 
-                            <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Upload</button>
+                            <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Update</button>
                             <button type="reset" class="btn btn-md btn-warning border-0 shadow">Reset</button>
                         </form>
                     </div>
@@ -49,14 +45,10 @@ import {
 } from '@inertiajs/inertia-vue3';
 
 //import reactive from vue
-import {
-    reactive
-} from 'vue';
+import { reactive } from 'vue';
 
 //import inerita adapter
-import {
-    Inertia
-} from '@inertiajs/inertia';
+import { Inertia } from '@inertiajs/inertia';
 
 //import sweet alert2
 import Swal from 'sweetalert2';
@@ -75,6 +67,7 @@ export default {
     //props
     props: {
         errors: Object,
+        question_group: Object
     },
 
     //inisialisasi composition API
@@ -82,34 +75,36 @@ export default {
 
         //define form with reactive
         const form = reactive({
-            file: '',
+            name: props.question_group.name,
         });
 
         //method "submit"
         const submit = () => {
 
             //send data to server
-            Inertia.post(`/teacher/question_groups/${question_group.id}/question_banks/import`, {
+            Inertia.put(`/teacher/question_groups/${props.question_group.id}`, {
                 //data
-                file: form.file,
+                name: form.name,
             }, {
                 onSuccess: () => {
                     //show success alert
                     Swal.fire({
-                        title: 'Success!',
-                        text: 'Import Soal Ujian Berhasil Disimpan!.',
+                        name: 'Success!',
+                        text: 'Kelompok Soal Berhasil Diupdate!.',
                         icon: 'success',
                         showConfirmButton: false,
                         timer: 2000
                     });
                 },
             });
+
         }
 
+        //return
         return {
             form,
-            submit
-        };
+            submit,
+        }
 
     }
 

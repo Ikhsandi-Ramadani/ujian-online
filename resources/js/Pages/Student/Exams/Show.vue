@@ -2,7 +2,7 @@
     <Head>
         <title>Ujian Dengan Nomor Soal : {{ page }} - Aplikasi Ujian Online</title>
     </Head>
-    <div class="row mb-5">
+    <div class="row my-5">
         <div class="col-md-7">
             <div class="card border-0 shadow">
                 <div class="card-header">
