@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('question_banks', function (Blueprint $table) {
-            // $table->foreignId('question_group_id')->after('teacher_id')->references('id')->on('question_groups')->cascadeOnDelete();
+            $table->integer('level')->after('answer')->default(1);
         });
     }
 
@@ -21,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('question_banks', function (Blueprint $table) {
+            $table->dropColumn('level');
+        });
     }
 };

@@ -58,6 +58,7 @@ class QuestionBankController extends Controller
             'option_4'          => 'required',
             'option_5'          => 'required',
             'answer'            => 'required',
+            'level'            => 'required',
         ]);
         $question_group = QuestionGroup::findorfail($id);
         // dd($question_group);
@@ -72,6 +73,7 @@ class QuestionBankController extends Controller
             'option_4'          => $request->option_4,
             'option_5'          => $request->option_5,
             'answer'            => $request->answer,
+            'level'             => $request->level,
         ]);
 
         //redirect
@@ -114,6 +116,7 @@ class QuestionBankController extends Controller
             'option_4'          => 'required',
             'option_5'          => 'required',
             'answer'            => 'required',
+            'level'            => 'required',
         ]);
         $question_group = QuestionGroup::findorfail($question_group);
         $question = QuestionBank::findOrFail($question_bank);
@@ -126,6 +129,7 @@ class QuestionBankController extends Controller
             'option_4'          => $request->option_4,
             'option_5'          => $request->option_5,
             'answer'            => $request->answer,
+            'level'             => $request->level,
         ]);
 
         //redirect

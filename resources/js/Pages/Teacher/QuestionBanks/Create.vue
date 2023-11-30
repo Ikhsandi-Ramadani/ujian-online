@@ -19,66 +19,72 @@
                                         <tr>
                                             <td style="width:20%" class="fw-bold">Soal</td>
                                             <td>
-                                                <Editor api-key="no-api-key" v-model="form.question" :init="{
-                                                    menubar: false,
-                                                    plugins: 'lists link image emoticons',
-                                                    toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
-                                                }" />
+                                                <Editor api-key="3rzgg05al8e3ia211iu5bqmf9jreab5zydjecd6iy6gqr3fk"
+                                                    v-model="form.question" :init="{
+                                                        menubar: false,
+                                                        plugins: 'lists link image emoticons',
+                                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                                    }" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="width:20%" class="fw-bold">Pilihan A</td>
                                             <td>
-                                                <Editor api-key="no-api-key" v-model="form.option_1" :init="{
-                                                    height: 130,
-                                                    menubar: false,
-                                                    plugins: 'lists link image emoticons',
-                                                    toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
-                                                }" />
+                                                <Editor api-key="3rzgg05al8e3ia211iu5bqmf9jreab5zydjecd6iy6gqr3fk"
+                                                    v-model="form.option_1" :init="{
+                                                        height: 130,
+                                                        menubar: false,
+                                                        plugins: 'lists link image emoticons',
+                                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                                    }" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="width:20%" class="fw-bold">Pilihan B</td>
                                             <td>
-                                                <Editor api-key="no-api-key" v-model="form.option_2" :init="{
-                                                    height: 130,
-                                                    menubar: false,
-                                                    plugins: 'lists link image emoticons',
-                                                    toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
-                                                }" />
+                                                <Editor api-key="3rzgg05al8e3ia211iu5bqmf9jreab5zydjecd6iy6gqr3fk"
+                                                    v-model="form.option_2" :init="{
+                                                        height: 130,
+                                                        menubar: false,
+                                                        plugins: 'lists link image emoticons',
+                                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                                    }" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="width:20%" class="fw-bold">Pilihan C</td>
                                             <td>
-                                                <Editor api-key="no-api-key" v-model="form.option_3" :init="{
-                                                    height: 130,
-                                                    menubar: false,
-                                                    plugins: 'lists link image emoticons',
-                                                    toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
-                                                }" />
+                                                <Editor api-key="3rzgg05al8e3ia211iu5bqmf9jreab5zydjecd6iy6gqr3fk"
+                                                    v-model="form.option_3" :init="{
+                                                        height: 130,
+                                                        menubar: false,
+                                                        plugins: 'lists link image emoticons',
+                                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                                    }" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="width:20%" class="fw-bold">Pilihan D</td>
                                             <td>
-                                                <Editor api-key="no-api-key" v-model="form.option_4" :init="{
-                                                    height: 130,
-                                                    menubar: false,
-                                                    plugins: 'lists link image emoticons',
-                                                    toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
-                                                }" />
+                                                <Editor api-key="3rzgg05al8e3ia211iu5bqmf9jreab5zydjecd6iy6gqr3fk"
+                                                    v-model="form.option_4" :init="{
+                                                        height: 130,
+                                                        menubar: false,
+                                                        plugins: 'lists link image emoticons',
+                                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                                    }" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="width:20%" class="fw-bold">Pilihan E</td>
                                             <td>
-                                                <Editor api-key="no-api-key" v-model="form.option_5" :init="{
-                                                    height: 130,
-                                                    menubar: false,
-                                                    plugins: 'lists link image emoticons',
-                                                    toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
-                                                }" />
+                                                <Editor api-key="3rzgg05al8e3ia211iu5bqmf9jreab5zydjecd6iy6gqr3fk"
+                                                    v-model="form.option_5" :init="{
+                                                        height: 130,
+                                                        menubar: false,
+                                                        plugins: 'lists link image emoticons',
+                                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                                    }" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -90,6 +96,18 @@
                                                     <option value="3">C</option>
                                                     <option value="4">D</option>
                                                     <option value="5">E</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:20%" class="fw-bold">Level Soal</td>
+                                            <td>
+                                                <select class="form-control" v-model="form.level">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -161,6 +179,7 @@ export default {
             option_4: '',
             option_5: '',
             answer: '',
+            level: '',
         });
 
         //method "submit"
@@ -176,6 +195,7 @@ export default {
                 option_4: form.option_4,
                 option_5: form.option_5,
                 answer: form.answer,
+                level: form.level,
             }, {
                 onSuccess: () => {
                     //show success alert

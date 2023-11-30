@@ -55,6 +55,7 @@
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Soal</th>
+                                        <th class="border-0" style="width: 5%;">Level Soal</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -79,6 +80,7 @@
                                                     :class="{ 'text-success fw-bold': question.answer == '5' }"></li>
                                             </ol>
                                         </td>
+                                        <td class="text-center fw-bold" v-html="question.level"></td>
                                         <td class="text-center">
                                             <Link
                                                 :href="`/teacher/question_groups/${question_group.id}/question_banks/${question.id}/edit`"

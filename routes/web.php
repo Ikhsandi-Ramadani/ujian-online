@@ -74,6 +74,8 @@ Route::prefix('teacher')->group(function () {
 
         //custom route for enrolle create
         Route::get('/exams/{exam}/enrolle/create', [ExamController::class, 'createEnrolle'])->name('teacher.exams.createEnrolle');
+        //custom route for enrolle filter
+        Route::get('/exams/{exam}/enrolle/create/filter', [ExamController::class, 'filterEnrolle'])->name('teacher.exams.filterEnrolle');
         //custom route for enrolle store
         Route::post('/exams/{exam}/enrolle/store', [ExamController::class, 'storeEnrolle'])->name('teacher.exams.storeEnrolle');
         //custom route for enrolle destroy

@@ -54,7 +54,9 @@
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Soal</th>
-                                        <th class="border-0 rounded-end" style="width:15%">Aksi</th>
+                                        <th class="border-0" style="width: 5%;">Level Soal</th>
+                                        <th class="border-0" style="width: 20%;">Kelompok Soal</th>
+                                        <th class="border-0 rounded-end" style="width:10%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <div class="mt-2"></div>
@@ -82,6 +84,9 @@
                                                     :class="{ 'text-success fw-bold': question.question_bank.answer == '5' }">
                                                 </li>
                                             </ol>
+                                        </td>
+                                        <td class="text-center fw-bold">{{ question.question_bank.level }}</td>
+                                        <td class="text-center fw-bold">{{ question.question_bank.question_group.name }}
                                         </td>
                                         <td class="text-center">
                                             <button @click.prevent="destroy(exam.id, question.id)"

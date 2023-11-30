@@ -25,6 +25,7 @@ class QuestionBank extends Model
         'option_4',
         'option_5',
         'answer',
+        'level'
     ];
 
     public function teacher()

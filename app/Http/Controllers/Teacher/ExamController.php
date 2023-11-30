@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Teacher;
 use App\Models\Exam;
 use App\Models\Lesson;
 use App\Models\Question;
+use App\Models\ExamSession;
+use App\Models\QuestionBank;
 use Illuminate\Http\Request;
+use App\Models\QuestionGroup;
 use App\Imports\QuestionsImport;
 use App\Http\Controllers\Controller;
-use App\Models\QuestionBank;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExamController extends Controller
@@ -96,7 +98,7 @@ class ExamController extends Controller
         //get exam
         $exam = Exam::with('lesson')->findOrFail($id);
         //get relation questions with pagination
-        $exam->setRelation('questions', $exam->questions()->with('question_bank')->paginate(5));
+        $exam->setRelation('questions', $exam->questions()->with('question_bank', 'question_bank.question_group')->paginate(5));
         //render with inertia
         return inertia('Teacher/Exams/Show', [
             'exam' => $exam,
@@ -184,15 +186,42 @@ class ExamController extends Controller
     {
         $teacher = auth('teacher')->user();
 
-        //get students already enrolled
-        $questions_enrolled = Question::where('exam_id', $exam->id)->pluck('question_bank_id')->all();
-
-        //get questions
-        $questions = QuestionBank::whereNotIn('id', $questions_enrolled)->with('question_group')->orderBy('question_group_id', 'desc')->get();
+        // get Question Group
+        $question_groups = QuestionGroup::where('teacher_id', $teacher->id)->get();
 
         //render with inertia
         return inertia('Teacher/ExamQuestions/Create', [
             'exam'          => $exam,
+            'question_groups' => $question_groups,
+            'questions'      => [],
+        ]);
+    }
+
+    public function filterEnrolle(Request $request)
+    {
+        $this->validate($request, [
+            'exam_id'           => 'required',
+            'question_group_id' => 'required',
+            'level'             => 'required'
+        ]);
+
+        $teacher = auth('teacher')->user();
+        $exam = Exam::findOrFail($request->exam_id);
+
+        // get Question Group
+        $question_groups = QuestionGroup::where('teacher_id', $teacher->id)->get();
+        $question_group = QuestionGroup::where('teacher_id', $teacher->id)->where('id', $request->question_group_id)->first();
+
+        //get question already enrolled
+        $questions_enrolled = Question::where('exam_id', $exam->id)->pluck('question_bank_id')->all();
+
+        //get questions
+        $questions = QuestionBank::whereNotIn('id', $questions_enrolled)->where('question_group_id', $question_group->id)->where('level', $request->level)->with('question_group')->orderBy('question_group_id', 'desc')->get();
+
+        //render with inertia
+        return inertia('Teacher/ExamQuestions/Create', [
+            'exam'          => $exam,
+            'question_groups' => $question_groups,
             'questions'      => $questions,
         ]);
     }

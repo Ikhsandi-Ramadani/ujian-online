@@ -40,11 +40,12 @@
 
                             <div class="mb-4">
                                 <label>Deskripsi</label>
-                                <Editor api-key="no-api-key" v-model="form.description" :init="{
-                                    menubar: false,
-                                    plugins: 'lists link image emoticons',
-                                    toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
-                                }" />
+                                <Editor api-key="3rzgg05al8e3ia211iu5bqmf9jreab5zydjecd6iy6gqr3fk"
+                                    v-model="form.description" :init="{
+                                        menubar: false,
+                                        plugins: 'lists link image emoticons',
+                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                    }" />
                                 <div v-if="errors.description" class="alert alert-danger mt-2">
                                     {{ errors.description }}
                                 </div>
