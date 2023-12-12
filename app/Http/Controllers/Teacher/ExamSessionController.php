@@ -81,11 +81,18 @@ class ExamSessionController extends Controller
     {
         //get exam_session
         $exam_session = ExamSession::with('exam.lesson')->findOrFail($id);
+        //get exam
+        $exam = Exam::with('lesson')->findOrFail($exam_session->exam_id);
+        //get relation questions with pagination
+        $exam->setRelation('questions', $exam->questions()->with('question_bank', 'question_bank.question_group')->paginate(5));
+
         //get relation exam_groups with pagination
         $exam_session->setRelation('exam_groups', $exam_session->exam_groups()->with('student')->paginate(5));
         //render with inertia
         return inertia('Teacher/ExamSessions/Show', [
             'exam_session'  => $exam_session,
+            'exam'  => $exam,
+
         ]);
     }
 
@@ -217,5 +224,17 @@ class ExamSessionController extends Controller
 
         //redirect
         return redirect()->route('teacher.exam_sessions.show', $exam_session->id);
+    }
+
+    public function peserta($id)
+    {
+        //get exam_session
+        $exam_session = ExamSession::with('exam.lesson')->findOrFail($id);
+        //get relation exam_groups with pagination
+        $exam_session->setRelation('exam_groups', $exam_session->exam_groups()->with('student')->paginate(5));
+        //render with inertia
+        return inertia('Teacher/ExamSessions/Peserta', [
+            'exam_session'  => $exam_session,
+        ]);
     }
 }

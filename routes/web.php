@@ -19,6 +19,7 @@ use App\Http\Controllers\Student\ExamController as StudentExam;
 use App\Http\Controllers\Teacher\QuestionBankController;
 use App\Http\Controllers\Teacher\QuestionGroupController;
 use App\Models\QuestionBank;
+use Illuminate\Support\Facades\Artisan;
 
 //prefix "admin"
 Route::prefix('admin')->group(function () {
@@ -83,6 +84,8 @@ Route::prefix('teacher')->group(function () {
         //route resource exams
         Route::resource('/exams', ExamController::class, ['as' => 'teacher']);
 
+        //peserta
+        Route::get('/exam_sessions/{exam_session}/peserta', [ExamSessionController::class, 'peserta'])->name('teacher.exam_sessions.peserta');
         //route resource exam_sessions
         Route::resource('/exam_sessions', ExamSessionController::class, ['as' => 'teacher']);
         //custom route for enrolle create
@@ -102,7 +105,8 @@ Route::prefix('teacher')->group(function () {
 });
 
 //login students
-Route::get('/', [AuthController::class, 'login']);
+Route::get('/', [AuthController::class, 'home']);
+Route::get('/students/login', [AuthController::class, 'login']);
 Route::post('/students/login', [AuthController::class, 'postLogin'])->name('student.login');
 //register students
 Route::get('/register', [AuthController::class, 'register']);
@@ -132,4 +136,10 @@ Route::prefix('student')->group(function () {
         //route exam result
         Route::get('/exam-result/{exam_group_id}', [StudentExam::class, 'resultExam'])->name('student.exams.resultExam');
     });
+});
+
+Route::get('optimize', function () {
+    \Artisan::call('optimize');
+    // \Artisan::call('cache:clear');
+    dd("Cache is cleared");
 });

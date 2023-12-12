@@ -268,4 +268,5 @@ class ExamController extends Controller
         //redirect
         return redirect()->route('teacher.exams.show', $exam->id);
     }
+
 }

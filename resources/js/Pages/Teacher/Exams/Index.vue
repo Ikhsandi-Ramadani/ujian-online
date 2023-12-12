@@ -52,8 +52,8 @@
                                         <td class="text-center">{{ exam.questions.length }}</td>
                                         <td class="text-center">
                                             <Link :href="`/teacher/exams/${exam.id}`"
-                                                class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i
-                                                class="fa fa-plus-circle"></i></Link>
+                                                class="btn btn-sm btn-warning border-0 shadow me-2" type="button"><i
+                                                class="fa fa-eye"></i></Link>
                                             <Link :href="`/teacher/exams/${exam.id}/edit`"
                                                 class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i
                                                 class="fa fa-pencil-alt"></i></Link>

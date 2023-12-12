@@ -46,41 +46,52 @@
 
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        <h5> <i class="fa fa-user-plus"></i> Enrolled Mahasiswa</h5>
+                        <h5> <i class="fa fa-question-circle"></i> Soal Ujian</h5>
                         <hr>
-
-                        <Link :href="`/teacher/exam_sessions/${exam_session.id}/enrolle/create`"
-                            class="btn btn-md btn-primary border-0 shadow me-2" type="button"><i
-                            class="fa fa-user-plus"></i> Enrolle Mahasiswa</Link>
-
                         <div class="table-responsive mt-3">
                             <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
-                                        <th class="border-0">Nim</th>
-                                        <th class="border-0">Nama Mahasiswa</th>
-                                        <th class="border-0">Jenis Kelamin</th>
-                                        <th class="border-0 rounded-end" style="width:15%">Aksi</th>
+                                        <th class="border-0">Soal</th>
+                                        <th class="border-0" style="width: 5%;">Level Soal</th>
+                                        <th class="border-0" style="width: 20%;">Kelompok Soal</th>
                                     </tr>
                                 </thead>
                                 <div class="mt-2"></div>
                                 <tbody>
-                                    <tr v-for="(data, index) in exam_session.exam_groups.data" :key="index">
-                                        <td class="fw-bold text-center">{{ ++index + (exam_session.exam_groups.current_page
-                                            - 1) * exam_session.exam_groups.per_page }}</td>
-                                        <td class="text-center">{{ data.student.nim }}</td>
-                                        <td>{{ data.student.name }}</td>
-                                        <td class="text-center">{{ data.student.gender }}</td>
-                                        <td class="text-center">
-                                            <button @click.prevent="destroy(exam_session.id, data.id)"
-                                                class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
+                                    <tr v-for="(question, index) in exam.questions.data" :key="index">
+                                        <td class="fw-bold text-center">{{ ++index + (exam.questions.current_page - 1) *
+                                            exam.questions.per_page }}</td>
+                                        <td>
+                                            <div class="fw-bold" v-html="question.question_bank.question"></div>
+                                            <hr>
+                                            <ol type="A">
+                                                <li v-html="question.question_bank.option_1"
+                                                    :class="{ 'text-success fw-bold': question.question_bank.answer == '1' }">
+                                                </li>
+                                                <li v-html="question.question_bank.option_2"
+                                                    :class="{ 'text-success fw-bold': question.question_bank.answer == '2' }">
+                                                </li>
+                                                <li v-html="question.question_bank.option_3"
+                                                    :class="{ 'text-success fw-bold': question.question_bank.answer == '3' }">
+                                                </li>
+                                                <li v-html="question.question_bank.option_4"
+                                                    :class="{ 'text-success fw-bold': question.question_bank.answer == '4' }">
+                                                </li>
+                                                <li v-html="question.question_bank.option_5"
+                                                    :class="{ 'text-success fw-bold': question.question_bank.answer == '5' }">
+                                                </li>
+                                            </ol>
+                                        </td>
+                                        <td class="text-center fw-bold">{{ question.question_bank.level }}</td>
+                                        <td class="text-center fw-bold">{{ question.question_bank.question_group.name }}
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <Pagination :links="exam_session.exam_groups.links" align="end" />
+                        <Pagination :links="exam.questions.links" align="end" />
                     </div>
                 </div>
 
@@ -124,6 +135,7 @@ export default {
     props: {
         errors: Object,
         exam_session: Object,
+        exam: Object,
     },
 
     //inisialisasi composition API

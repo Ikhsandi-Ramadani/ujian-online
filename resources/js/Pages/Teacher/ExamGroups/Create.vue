@@ -5,7 +5,7 @@
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
-                <Link :href="`/teacher/exam_sessions/${exam_session.id}`" class="btn btn-md btn-primary border-0 shadow mb-3"
+                <Link href="/teacher/exam_sessions" class="btn btn-md btn-primary border-0 shadow mb-3"
                     type="button"><i class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">

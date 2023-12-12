@@ -15,7 +15,7 @@
 
                     <div class="mb-4">
                         <label for="email">Nim</label>
-                        <input type="number" class="form-control" v-model="form.nim" placeholder="Masukkan Nim">
+                        <input type="text" class="form-control" v-model="form.nim" placeholder="Masukkan Nim">
                         <div v-if="errors.nim" class="alert alert-danger mt-2">
                             {{ errors.nim }}
                         </div>

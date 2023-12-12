@@ -49,8 +49,8 @@
                                         <td>{{ question_group.question_bank.length }}</td>
                                         <td class="text-center">
                                             <Link :href="`/teacher/question_groups/${question_group.id}/question_banks`"
-                                                class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i
-                                                class="fa fa-plus-circle"></i></Link>
+                                                class="btn btn-sm btn-warning border-0 shadow me-2" type="button"><i
+                                                class="fa fa-eye"></i></Link>
                                             <Link :href="`/teacher/question_groups/${question_group.id}/edit`"
                                                 class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i
                                                 class="fa fa-pencil-alt"></i></Link>

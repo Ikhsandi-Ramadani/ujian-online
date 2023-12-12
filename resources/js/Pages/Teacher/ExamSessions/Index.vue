@@ -36,12 +36,12 @@
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
+                                        <th class="border-0" style="width:15%">Aksi</th>
                                         <th class="border-0">Ujian</th>
                                         <th class="border-0">Sesi</th>
                                         <th class="border-0">Siswa</th>
                                         <th class="border-0">Mulai</th>
-                                        <th class="border-0">Selesai</th>
-                                        <th class="border-0 rounded-end" style="width:15%">Aksi</th>
+                                        <th class="border-0 rounded-end">Selesai</th>
                                     </tr>
                                 </thead>
                                 <div class="mt-2"></div>
@@ -49,6 +49,25 @@
                                     <tr v-for="(exam_session, index) in exam_sessions.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (exam_sessions.current_page - 1) *
                                             exam_sessions.per_page }}</td>
+                                        <td class="text-center">
+                                            <Link :href="`/teacher/exam_sessions/${exam_session.id}/peserta`"
+                                                class="btn btn-sm btn-primary border-0 shadow me-2" type="button"
+                                                data-bs-toggle="tooltip" title="Peserta"><i class="fa fa-user"></i></Link>
+                                            <Link :href="`/teacher/exam_sessions/${exam_session.id}`"
+                                                class="btn btn-sm btn-secondary border-0 shadow me-2" type="button"
+                                                data-bs-toggle="tooltip" title="Detail"><i class="fa fa-file"></i></Link>
+                                            <Link :href="`/teacher/exam_sessions/${exam_session.id}/enrolle/create`"
+                                                class="btn btn-sm btn-tertiary border-0 shadow me-2" type="button"
+                                                data-bs-toggle="tooltip" title="Sesi"><i class="fa fa-hourglass-half"></i>
+                                            </Link>
+                                            <Link :href="`/teacher/exam_sessions/${exam_session.id}/edit`"
+                                                class="btn btn-sm btn-info border-0 shadow me-2" type="button"
+                                                data-bs-toggle="tooltip" title="Edit"><i class="fa fa-pencil-alt"></i>
+                                            </Link>
+                                            <button @click.prevent="destroy(exam_session.id)"
+                                                class="btn btn-sm btn-danger border-0" data-bs-toggle="tooltip"
+                                                title="Hapus"><i class="fa fa-trash"></i></button>
+                                        </td>
                                         <td>
                                             <strong class="fw-bold">{{ exam_session.exam.title }}</strong>
                                             <ul class="mt-2">
@@ -60,16 +79,6 @@
                                         <td class="text-center">{{ exam_session.exam_groups.length }}</td>
                                         <td>{{ exam_session.start_time }}</td>
                                         <td>{{ exam_session.end_time }}</td>
-                                        <td class="text-center">
-                                            <Link :href="`/teacher/exam_sessions/${exam_session.id}`"
-                                                class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i
-                                                class="fa fa-plus-circle"></i></Link>
-                                            <Link :href="`/teacher/exam_sessions/${exam_session.id}/edit`"
-                                                class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i
-                                                class="fa fa-pencil-alt"></i></Link>
-                                            <button @click.prevent="destroy(exam_session.id)"
-                                                class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
-                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

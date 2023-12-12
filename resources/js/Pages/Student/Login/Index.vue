@@ -22,7 +22,7 @@
                             <span class="input-group-text" id="basic-addon1">
                                 <i class="fa fa-key"></i>
                             </span>
-                            <input type="number" class="form-control" v-model="form.nim" placeholder="Nim">
+                            <input type="text" class="form-control" v-model="form.nim" placeholder="Nim">
                         </div>
                         <div v-if="errors.nim" class="alert alert-danger mt-2">
                             {{ errors.nim }}
