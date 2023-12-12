@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function login()
     {
         //cek session student
-        if (auth()->guard('student')->check() && auth()->guard('student')->status == 'approve') {
+        if (auth()->guard('student')->check() && auth()->guard('student')->user()->status == 'approve') {
             return redirect()->route('student.dashboard');
         }
         //return view login

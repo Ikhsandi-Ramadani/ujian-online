@@ -29,7 +29,11 @@ class DashboardController extends Controller
             ->latest()->first();
 
 
-        $history = Grade::with('exam', 'exam_session')->where('student_id', auth()->guard('student')->user()->id)->orderBy('exam_id', 'DESC')->latest()->get();
+        $history = Grade::with('exam', 'exam_session')->where('student_id', auth()->guard('student')->user()->id)
+            ->where('start_time', '!=', null)
+            ->where('end_time', '!=', null)
+            ->orderBy('exam_id', 'DESC')
+            ->latest()->get();
 
         //return with inertia
         return inertia('Student/Dashboard/Index', [

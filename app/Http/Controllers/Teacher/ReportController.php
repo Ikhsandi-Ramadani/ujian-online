@@ -55,6 +55,8 @@ class ReportController extends Controller
             $grades = Grade::with('student', 'exam.lesson', 'exam_session')
                 ->where('exam_id', $exam->id)
                 ->where('exam_session_id', $exam_session->id)
+                ->where('start_time', '!=', null)
+                ->where('end_time', '!=', null)
                 ->get();
         } else {
             $grades = [];
@@ -92,7 +94,11 @@ class ReportController extends Controller
 
     public function history($student_id)
     {
-        $history = Grade::with('exam', 'exam_session')->where('student_id', $student_id)->orderBy('exam_id', 'DESC')->latest()->get();
+        $history = Grade::with('exam', 'exam_session')->where('student_id', auth()->guard('student')->user()->id)
+            ->where('start_time', '!=', null)
+            ->where('end_time', '!=', null)
+            ->orderBy('exam_id', 'DESC')
+            ->latest()->get();
         $student = Student::findorfail($student_id);
 
         return inertia('Teacher/Reports/History', [

@@ -45,7 +45,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card border-0 shadow">
-                    <div class="card-body">
+                    <div class="card-body" v-if="last_exam != null && last_grade != null">
                         <h5 class="text-center">Ujian Terakhir</h5>
                         <hr>
                         <div class="table-responsive">
@@ -121,7 +121,7 @@
                         </div>
 
                         <!-- ulangi ujian -->
-                        <div v-else-if="last_exam.exam.kkm > last_grade.grade.grade">
+                        <div v-else-if="last_exam.exam.kkm > last_grade.grade">
                             <Link :href="`/student/exam-confirmation/${last_exam.id}`"
                                 class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
                             </Link>
@@ -143,7 +143,7 @@
                     <div class="card-body">
                         <h5 class="text-center">History Ujian</h5>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded" v-if="last_exam != null && last_grade != null">
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start">Ujian</th>
