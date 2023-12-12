@@ -69,14 +69,9 @@
                                     <button class="btn btn-md btn-gray-700 border-0 shadow w-100 mt-2" disabled>Belum
                                         Mulai</button>
                                 </div>
-                                <!-- ujian terlewat -->
-                                <div v-if="examTimeEndChecker(data.exam_group.exam_session.end_time)">
-                                    <button class="btn btn-md btn-danger border-0 shadow w-100 mt-2" disabled>Waktu
-                                        Terlewat</button>
-                                </div>
                             </div>
                         </div>
-                        
+
                         <div v-if="examTimeEndChecker(data.exam_group.exam_session.end_time)">
                             <button class="btn btn-md btn-danger border-0 shadow w-100 mt-2" disabled>Waktu
                                 Terlewat</button>
