@@ -41,7 +41,7 @@
                                 <h5 class="mt-2"><i class="fa fa-chart-line"></i> Laporan Nilai Ujian</h5>
                             </div>
                             <div class="col-md-3 col-12">
-                                <a :href="`/teacher/reports/export?exam_id=${form.exam_id}`" target="_blank"
+                                <a :href="`/admin/reports/export?exam_id=${form.exam_id}`" target="_blank"
                                     class="btn btn-success btn-md border-0 shadow w-100 text-white"><i
                                         class="fa fa-file-excel"></i> DOWNLOAD EXCEL</a>
                             </div>
@@ -72,7 +72,7 @@
                                         <td>{{ grade.exam.lesson.title }}</td>
                                         <td class="fw-bold text-center">{{ grade.grade }}</td>
                                         <!-- <td class="text-center">
-                                            <Link :href="`/teacher/reports/${grade.student_id}/history`"
+                                            <Link :href="`/admin/reports/${grade.student_id}/history`"
                                                 class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i
                                                 class="fa fa-file"></i></Link>
                                         </td> -->
@@ -88,8 +88,8 @@
 </template>
 
 <script>
-//import layout teacher
-import LayoutTeacher from '../../../Layouts/Teacher.vue';
+//import layout admin
+import LayoutAdmin from '../../../Layouts/Admin.vue';
 
 //import Head from Inertia
 import {
@@ -108,9 +108,7 @@ import { Inertia } from '@inertiajs/inertia';
 export default {
 
     //layout
-    layout: LayoutTeacher,
-
-
+    layout: LayoutAdmin,
 
     //register components
     components: {
@@ -137,7 +135,7 @@ export default {
         const filter = () => {
 
             //HTTP request
-            Inertia.get('/teacher/reports/filter', {
+            Inertia.get('/admin/reports/filter', {
 
                 //send data to server
                 exam_id: form.exam_id,

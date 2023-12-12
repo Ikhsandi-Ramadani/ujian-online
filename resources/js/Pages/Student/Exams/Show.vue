@@ -83,14 +83,14 @@
                             <div style="padding: 5px;">
 
                                 <button @click.prevent="clickQuestion(index)" v-if="index + 1 == page"
-                                    class="btn btn-gray-400 btn-sm w-100">{{ index + 1 }}</button>
+                                    class="btn btn-info btn-sm w-100">{{ index + 1 }}</button>
 
                                 <button @click.prevent="clickQuestion(index)"
                                     v-if="index + 1 != page && question.answer == 0"
                                     class="btn btn-outline-info btn-sm w-100">{{ index + 1 }}</button>
 
                                 <button @click.prevent="clickQuestion(index)"
-                                    v-if="index + 1 != page && question.answer != 0" class="btn btn-info btn-sm w-100">{{
+                                    v-if="index + 1 != page && question.answer != 0" class="btn btn-success btn-sm w-100">{{
                                         index + 1 }}</button>
                             </div>
                         </div>

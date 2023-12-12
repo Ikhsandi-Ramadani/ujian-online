@@ -6,11 +6,12 @@ use App\Http\Controllers\Admin\LessonController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Student\AuthController;
+use App\Http\Controllers\Admin\ReportController as AdminReport;
 //Teacher
 use App\Http\Controllers\Teacher\DashboardController as TeacherDashboard;
 use App\Http\Controllers\Teacher\ExamController;
 use App\Http\Controllers\Teacher\LoginController as TeacherLogin;
-use App\Http\Controllers\Teacher\ReportController;
+use App\Http\Controllers\Teacher\ReportController as TeacherReport;
 use App\Http\Controllers\Teacher\ExamSessionController;
 // Student
 use App\Http\Controllers\Student\LoginController as StudentLogin;
@@ -42,6 +43,15 @@ Route::prefix('admin')->group(function () {
         Route::post('/teachers/import', [TeacherController::class, 'storeImport'])->name('admin.teachers.storeImport');
         //route resource teachers
         Route::resource('/teachers', TeacherController::class, ['as' => 'admin']);
+
+        //route index reports
+        Route::get('/reports', [AdminReport::class, 'index'])->name('admin.reports.index');
+        //route index reports filter
+        Route::get('/reports/filter', [AdminReport::class, 'filter'])->name('admin.reports.filter');
+        //route index reports export
+        Route::get('/reports/export', [AdminReport::class, 'export'])->name('admin.reports.export');
+        //route history
+        Route::get('/reports/{student}/history', [AdminReport::class, 'history'])->name('admin.reports.history');
     });
 });
 
@@ -96,11 +106,13 @@ Route::prefix('teacher')->group(function () {
         Route::delete('/exam_sessions/{exam_session}/enrolle/{exam_group}/destroy', [ExamSessionController::class, 'destroyEnrolle'])->name('teacher.exam_sessions.destroyEnrolle');
 
         //route index reports
-        Route::get('/reports', [ReportController::class, 'index'])->name('teacher.reports.index');
+        Route::get('/reports', [TeacherReport::class, 'index'])->name('teacher.reports.index');
         //route index reports filter
-        Route::get('/reports/filter', [ReportController::class, 'filter'])->name('teacher.reports.filter');
+        Route::get('/reports/filter', [TeacherReport::class, 'filter'])->name('teacher.reports.filter');
         //route index reports export
-        Route::get('/reports/export', [ReportController::class, 'export'])->name('teacher.reports.export');
+        Route::get('/reports/export', [TeacherReport::class, 'export'])->name('teacher.reports.export');
+        //route history
+        Route::get('/reports/{student}/history', [TeacherReport::class, 'history'])->name('teacher.reports.history');
     });
 });
 
@@ -119,7 +131,8 @@ Route::prefix('student')->group(function () {
     Route::group(['middleware' => 'student'], function () {
 
         //route dashboard
-        Route::get('/dashboard', StudentDashboard::class)->name('student.dashboard');
+        Route::get('/dashboard', [StudentDashboard::class, 'index'])->name('student.dashboard');
+        Route::post('/upload-photo', [StudentDashboard::class, 'upload'])->name('student.upload');
         Route::get('/exams', [StudentExam::class, 'index'])->name('student.exams.index');
         //route exam confirmation
         Route::get('/exam-confirmation/{id}', [StudentExam::class, 'confirmation'])->name('student.exams.confirmation');

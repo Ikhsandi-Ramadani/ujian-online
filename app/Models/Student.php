@@ -20,6 +20,7 @@ class Student extends Authenticatable
         'name',
         'password',
         'gender',
-        'status'
+        'status',
+        'foto'
     ];
 }

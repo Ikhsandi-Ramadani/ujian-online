@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Teacher;
+namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use App\Models\Exam;
@@ -9,7 +9,6 @@ use App\Models\Student;
 use App\Models\ExamSession;
 use Illuminate\Http\Request;
 use App\Exports\GradesExport;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -25,7 +24,7 @@ class ReportController extends Controller
         //geta ll exams
         $exams = Exam::with('lesson')->get();
 
-        return inertia('Teacher/Reports/Index', [
+        return inertia('Admin/Reports/Index', [
             'exams'         => $exams,
             'grades'        => []
         ]);
@@ -59,7 +58,7 @@ class ReportController extends Controller
         } else {
             $grades = [];
         }
-        return inertia('Teacher/Reports/Index', [
+        return inertia('Admin/Reports/Index', [
             'exams'         => $exams,
             'grades'         => $grades,
         ]);
@@ -95,7 +94,7 @@ class ReportController extends Controller
         $history = Grade::with('exam', 'exam_session')->where('student_id', $student_id)->orderBy('exam_id', 'DESC')->latest()->get();
         $student = Student::findorfail($student_id);
 
-        return inertia('Teacher/Reports/History', [
+        return inertia('Admin/Reports/History', [
             'student' => $student,
             'history' => $history,
         ]);

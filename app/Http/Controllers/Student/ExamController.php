@@ -31,7 +31,7 @@ class ExamController extends Controller
             $grade = Grade::where('exam_id', $exam_group->exam_id)
                 ->where('exam_session_id', $exam_group->exam_session_id)
                 ->where('student_id', auth()->guard('student')->user()->id)
-                ->first();
+                ->latest()->first();
 
             //jika nilai / grade kosong, maka buat baru
             if ($grade == null) {
@@ -76,7 +76,7 @@ class ExamController extends Controller
         $grade = Grade::where('exam_id', $exam_group->exam->id)
             ->where('exam_session_id', $exam_group->exam_session->id)
             ->where('student_id', auth()->guard('student')->user()->id)
-            ->first();
+            ->latest();
 
         //return with inertia
         return inertia('Student/Exams/Confirmation', [
@@ -99,15 +99,16 @@ class ExamController extends Controller
             ->where('id', $id)
             ->first();
 
-        //get grade / nilai
-        $grade = Grade::where('exam_id', $exam_group->exam->id)
-            ->where('exam_session_id', $exam_group->exam_session->id)
-            ->where('student_id', auth()->guard('student')->user()->id)
-            ->first();
-
-        //update start time di table grades
-        $grade->start_time = Carbon::now();
-        $grade->update();
+        //create defaul grade
+        $grade = new Grade();
+        $grade->exam_id         = $exam_group->exam_id;
+        $grade->exam_session_id = $exam_group->exam_session_id;
+        $grade->student_id      = auth()->guard('student')->user()->id;
+        $grade->duration        = $exam_group->exam->duration * 60000;
+        $grade->total_correct   = 0;
+        $grade->grade           = 0;
+        $grade->start_time      = Carbon::now();
+        $grade->save();
 
         //cek apakah questions / soal ujian di random
         if ($exam_group->exam->random_question == 'Y') {
@@ -220,7 +221,7 @@ class ExamController extends Controller
         $duration = Grade::where('exam_id', $exam_group->exam->id)
             ->where('exam_session_id', $exam_group->exam_session->id)
             ->where('student_id', auth()->guard('student')->user()->id)
-            ->first();
+            ->latest()->first();
 
         //return with inertia
         return inertia('Student/Exams/Show', [
@@ -266,7 +267,7 @@ class ExamController extends Controller
         $grade = Grade::where('exam_id', $request->exam_id)
             ->where('exam_session_id', $request->exam_session_id)
             ->where('student_id', auth()->guard('student')->user()->id)
-            ->first();
+            ->latest()->first();
 
         $grade->duration = $request->duration;
         $grade->update();
@@ -327,7 +328,7 @@ class ExamController extends Controller
         $grade = Grade::where('exam_id', $request->exam_id)
             ->where('exam_session_id', $request->exam_session_id)
             ->where('student_id', auth()->guard('student')->user()->id)
-            ->first();
+            ->latest()->first();
 
         $grade->end_time        = Carbon::now();
         $grade->total_correct   = $count_correct_answer;
@@ -356,7 +357,7 @@ class ExamController extends Controller
         $grade = Grade::where('exam_id', $exam_group->exam->id)
             ->where('exam_session_id', $exam_group->exam_session->id)
             ->where('student_id', auth()->guard('student')->user()->id)
-            ->first();
+            ->latest()->first();
 
         //return with inertia
         return inertia('Student/Exams/Result', [
