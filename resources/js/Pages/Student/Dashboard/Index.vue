@@ -35,7 +35,7 @@
                                 </tr>
                                 <tr>
                                     <td>Gender</td>
-                                    <td v-if="student.gender == L">: Laki-laki</td>
+                                    <td v-if="student.gender == 'L'">: Laki-laki</td>
                                     <td v-else>: Perempuan</td>
                                 </tr>
                             </table>
