@@ -1,1 +1,0 @@
-import{L as t,o as e,c as s,q as n}from"./app-a09bc75d.js";import{_ as r}from"./_plugin-vue_export-helper-c27b6911.js";const c={components:{Link:t}},a={class:"container"};function p(o,_,i,d,f,l){return e(),s("div",a,[n(o.$slots,"default")])}const $=r(c,[["render",p]]);export{$ as L};

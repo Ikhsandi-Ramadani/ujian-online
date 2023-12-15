@@ -56,6 +56,15 @@
                                         class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Kerjakan</Link>
                                 </div>
 
+
+                                <!-- ulangi ujian -->
+                                <div v-else-if="data.exam_group.exam.kkm > data.grade.grade">
+                                    <Link :href="`/student/exam-confirmation/${data.exam_group.id}`"
+                                        class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
+                                    </Link>
+                                </div>
+                                <!-- End ulangi ujian -->
+
                                 <div v-else>
                                     <Link :href="`/student/exam/${data.exam_group.id}/1`"
                                         class="btn btn-md btn-info border-0 shadow w-100 mt-2">Lanjut Kerjakan</Link>
@@ -74,14 +83,6 @@
                                     <button class="btn btn-md btn-danger border-0 shadow w-100 mt-2" disabled>Waktu
                                         Terlewat</button>
                                 </div>
-
-                                <!-- ulangi ujian -->
-                                <div v-if="data.exam_group.exam.kkm > data.grade.grade">
-                                    <Link :href="`/student/exam-confirmation/${data.exam_group.id}`"
-                                        class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
-                                    </Link>
-                                </div>
-                                <!-- End ulangi ujian -->
 
                             </div>
                         </div>
