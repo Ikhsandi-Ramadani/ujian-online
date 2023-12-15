@@ -69,16 +69,18 @@
                                     <button class="btn btn-md btn-gray-700 border-0 shadow w-100 mt-2" disabled>Belum
                                         Mulai</button>
                                 </div>
+
+                                <div v-if="examTimeEndChecker(data.exam_group.exam_session.end_time)">
+                                    <button class="btn btn-md btn-danger border-0 shadow w-100 mt-2" disabled>Waktu
+                                        Terlewat</button>
+                                </div>
+
+
                             </div>
                         </div>
 
-                        <div v-if="examTimeEndChecker(data.exam_group.exam_session.end_time)">
-                            <button class="btn btn-md btn-danger border-0 shadow w-100 mt-2" disabled>Waktu
-                                Terlewat</button>
-                        </div>
-
                         <!-- ulangi ujian -->
-                        <div v-else-if="data.exam_group.exam.kkm > data.grade.grade">
+                        <div v-else-if="data.exam_group.exam.kkm > data.grade.grade && data.grade.end_time !== null">
                             <Link :href="`/student/exam-confirmation/${data.exam_group.id}`"
                                 class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
                             </Link>

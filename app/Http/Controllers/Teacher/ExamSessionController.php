@@ -211,7 +211,7 @@ class ExamSessionController extends Controller
             ]);
         }
         //redirect
-        return redirect()->route('teacher.exam_sessions.show', $exam_session->id);
+        return redirect()->route('teacher.exam_sessions.index');
     }
     /**
      * destroyEnrolle
@@ -226,7 +226,7 @@ class ExamSessionController extends Controller
         $exam_group->delete();
 
         //redirect
-        return redirect()->route('teacher.exam_sessions.show', $exam_session->id);
+        return redirect()->route('teacher.exam_sessions.index');
     }
 
     public function peserta($id)
