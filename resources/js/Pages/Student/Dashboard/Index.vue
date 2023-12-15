@@ -99,6 +99,13 @@
                                         class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Kerjakan</Link>
                                 </div>
 
+                                <!-- ulangi ujian -->
+                                <div v-else-if="last_exam.exam.kkm > last_grade.grade">
+                                    <Link :href="`/student/exam-confirmation/${last_exam.id}`"
+                                        class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
+                                    </Link>
+                                </div>
+
                                 <div v-else>
                                     <Link :href="`/student/exam/${last_exam.id}/1`"
                                         class="btn btn-md btn-info border-0 shadow w-100 mt-2">Lanjut Kerjakan</Link>
@@ -118,13 +125,6 @@
                                         Terlewat</button>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- ulangi ujian -->
-                        <div v-else-if="last_exam.exam.kkm > last_grade.grade && last_grade.end_time !== null">
-                            <Link :href="`/student/exam-confirmation/${last_exam.id}`"
-                                class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
-                            </Link>
                         </div>
 
                         <div v-else>
