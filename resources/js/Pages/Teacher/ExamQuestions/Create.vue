@@ -10,12 +10,12 @@
 
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body">
-                        <h5><i class="fa fa-filter"></i> Filter Soal</h5>
+                        <h5><i class="fa fa-filter"></i> Generate Soal</h5>
                         <hr>
-                        <form @submit.prevent="filter">
+                        <form @submit.prevent="generate">
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <label class="control-label" for="name">Kelompok Soal</label>
                                     <select class="form-select" v-model="form.question_group_id">
                                         <option v-for="(question_group, index) in question_groups" :key="index"
@@ -26,7 +26,7 @@
                                         {{ errors.question_group_id }}
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label class="control-label" for="name">Level Soal</label>
                                     <select class="form-select" v-model="form.level">
                                         <option value="1">1</option>
@@ -39,72 +39,23 @@
                                         {{ errors.level }}
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <label class="control-label" for="name">Jumlah Soal</label>
+                                    <input type="number" v-model="form.jumlah" class="form-control">
+                                    <div v-if="errors.jumlah" class="alert alert-danger mt-2">
+                                        {{ errors.jumlah }}
+                                    </div>
+                                </div>
                                 <div class="col-md-3">
                                     <label class="form-label fw-bold text-white">*</label>
                                     <button type="submit" class="btn btn-md btn-primary border-0 shadow w-100"> <i
-                                            class="fa fa-filter"></i> Filter</button>
+                                            class="fa fa-filter"></i> Generate</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <div class="card border-0 shadow">
-                    <div class="card-body">
-                        <h5><i class="fa fa-user-plus"></i> Enrolle Soal</h5>
-                        <hr>
-                        <form @submit.prevent="submit" v-if="questions.length > 0">
-
-                            <div class="table-responsive mb-4">
-                                <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
-                                    <thead class="thead-dark">
-                                        <tr class="border-0">
-                                            <th class="border-0 rounded-start" style="width:5%">
-                                                <input type="checkbox" v-model="form.allSelected" @change="selectAll" />
-                                            </th>
-                                            <th class="border-0">Soal</th>
-                                            <th class="border-0">Kelompok Soal</th>
-                                            <th class="border-0">Level Soal</th>
-                                        </tr>
-                                    </thead>
-                                    <div class="mt-3"></div>
-                                    <tbody>
-                                        <tr v-for="question of questions" :key="question.id">
-                                            <td>
-                                                <input type="checkbox" v-model="form.question_id" :id="question.id"
-                                                    :value="question.id" number :checked="form.allSelected" />
-                                            </td>
-                                            <td>
-                                                <div class="fw-bold" v-html="question.question"></div>
-                                                <hr>
-                                                <ol type="A">
-                                                    <li v-html="question.option_1"
-                                                        :class="{ 'text-success fw-bold': question.answer == '1' }"></li>
-                                                    <li v-html="question.option_2"
-                                                        :class="{ 'text-success fw-bold': question.answer == '2' }"></li>
-                                                    <li v-html="question.option_3"
-                                                        :class="{ 'text-success fw-bold': question.answer == '3' }"></li>
-                                                    <li v-html="question.option_4"
-                                                        :class="{ 'text-success fw-bold': question.answer == '4' }"></li>
-                                                    <li v-html="question.option_5"
-                                                        :class="{ 'text-success fw-bold': question.answer == '5' }"></li>
-                                                </ol>
-                                            </td>
-                                            <td class="text-center fw-bold">{{ question.question_group.name }}</td>
-                                            <td class="text-center fw-bold">{{ question.level }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div v-if="errors.question_id" class="alert alert-danger mt-2">
-                                    {{ errors.question_id }}
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button>
-                            <button type="reset" class="btn btn-md btn-warning border-0 shadow">Reset</button>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -164,17 +115,19 @@ export default {
             question_group_id: '' || (new URL(document.location)).searchParams.get('question_group_id'),
             question_id: [],
             allSelected: false,
+            jumlah: '',
         });
 
-        //define methods filter
-        const filter = () => {
+        //define methods generate
+        const generate = () => {
 
             //HTTP request
-            Inertia.get(`/teacher/exams/${props.exam.id}/enrolle/create/filter`, {
+            Inertia.get(`/teacher/exams/${props.exam.id}/enrolle/create/generate`, {
                 //send data to server
                 exam_id: form.exam_id,
                 level: form.level,
                 question_group_id: form.question_group_id,
+                jumlah: form.jumlah
             });
 
         }
@@ -189,34 +142,33 @@ export default {
         }
 
         //method "submit"
-        const submit = () => {
+        // const submit = () => {
 
-            //send data to server
-            Inertia.post(`/teacher/exams/${props.exam.id}/enrolle/store`, {
-                //data
-                exam_id: form.exam_id,
-                question_id: form.question_id,
-            }, {
-                onSuccess: () => {
-                    //show success alert
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Enrolle Soal Berhasil Disimpan!.',
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
-                },
-            });
+        //     //send data to server
+        //     Inertia.post(`/teacher/exams/${props.exam.id}/enrolle/store`, {
+        //         //data
+        //         exam_id: form.exam_id,
+        //         question_id: form.question_id,
+        //     }, {
+        //         onSuccess: () => {
+        //             //show success alert
+        //             Swal.fire({
+        //                 title: 'Success!',
+        //                 text: 'Enrolle Soal Berhasil Disimpan!.',
+        //                 icon: 'success',
+        //                 showConfirmButton: false,
+        //                 timer: 2000
+        //             });
+        //         },
+        //     });
 
-        }
+        // }
 
         //return
         return {
             form,
-            filter,
+            generate,
             selectAll,
-            submit,
         };
 
     }

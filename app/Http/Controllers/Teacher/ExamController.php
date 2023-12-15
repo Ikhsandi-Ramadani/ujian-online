@@ -268,4 +268,42 @@ class ExamController extends Controller
         //redirect
         return redirect()->route('teacher.exams.show', $exam->id);
     }
+
+    /**
+     * generateEnrolle
+     *
+     * @param  mixed $exam
+     * @return void
+     */
+    public function generateEnrolle(Request $request, Exam $exam)
+    {
+        //validate request
+        $request->validate([
+            'exam_id'           => 'required',
+            'question_group_id' => 'required',
+            'level'             => 'required',
+            'jumlah'            => 'required'
+        ]);
+
+        $teacher = auth('teacher')->user();
+        $exam = Exam::findOrFail($request->exam_id);
+
+        //get question already enrolled
+        $questions_enrolled = Question::where('exam_id', $exam->id)->pluck('question_bank_id')->all();
+
+        //get question
+        $questions = QuestionBank::whereNotIn('id', $questions_enrolled)->where('teacher_id', $teacher->id)->where('question_group_id', $request->question_group_id)->where('level', $request->level)->inRandomOrder()->limit($request->jumlah)->get();
+
+        //create exam_group
+        foreach ($questions as $question) {
+            //create exam_group
+            Question::create([
+                'exam_id'               => $exam->id,
+                'question_bank_id'      => $question->id,
+            ]);
+        }
+
+        //redirect
+        return redirect()->route('teacher.exams.show', $exam->id);
+    }
 }

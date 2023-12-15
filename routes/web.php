@@ -1,11 +1,13 @@
 <?php
-// Admin
+
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+
+// Admin
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\LessonController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
-use App\Http\Controllers\Student\AuthController;
 use App\Http\Controllers\Admin\ReportController as AdminReport;
 //Teacher
 use App\Http\Controllers\Teacher\DashboardController as TeacherDashboard;
@@ -13,14 +15,13 @@ use App\Http\Controllers\Teacher\ExamController;
 use App\Http\Controllers\Teacher\LoginController as TeacherLogin;
 use App\Http\Controllers\Teacher\ReportController as TeacherReport;
 use App\Http\Controllers\Teacher\ExamSessionController;
-// Student
-use App\Http\Controllers\Student\LoginController as StudentLogin;
-use App\Http\Controllers\Student\DashboardController as StudentDashboard;
-use App\Http\Controllers\Student\ExamController as StudentExam;
 use App\Http\Controllers\Teacher\QuestionBankController;
 use App\Http\Controllers\Teacher\QuestionGroupController;
-use App\Models\QuestionBank;
-use Illuminate\Support\Facades\Artisan;
+// Student
+use App\Http\Controllers\Student\AuthController;
+use App\Http\Controllers\Student\DashboardController as StudentDashboard;
+use App\Http\Controllers\Student\ExamController as StudentExam;
+
 
 //prefix "admin"
 Route::prefix('admin')->group(function () {
@@ -87,6 +88,8 @@ Route::prefix('teacher')->group(function () {
         Route::get('/exams/{exam}/enrolle/create', [ExamController::class, 'createEnrolle'])->name('teacher.exams.createEnrolle');
         //custom route for enrolle filter
         Route::get('/exams/{exam}/enrolle/create/filter', [ExamController::class, 'filterEnrolle'])->name('teacher.exams.filterEnrolle');
+        //custom route for enrolle generate
+        Route::get('/exams/{exam}/enrolle/create/generate', [ExamController::class, 'generateEnrolle'])->name('teacher.exams.generateEnrolle');
         //custom route for enrolle store
         Route::post('/exams/{exam}/enrolle/store', [ExamController::class, 'storeEnrolle'])->name('teacher.exams.storeEnrolle');
         //custom route for enrolle destroy
@@ -154,7 +157,7 @@ Route::prefix('student')->group(function () {
 });
 
 Route::get('optimize', function () {
-    \Artisan::call('optimize');
+    Artisan::call('optimize');
     // \Artisan::call('cache:clear');
     dd("Cache is cleared");
 });
