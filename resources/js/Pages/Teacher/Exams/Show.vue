@@ -26,7 +26,7 @@
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Jumlah Soal</td>
-                                        <td>{{ exam.questions.data.length }}</td>
+                                        <td>{{ exam.questions.total }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Durasi (Menit)</td>

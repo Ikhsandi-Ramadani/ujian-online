@@ -99,6 +99,7 @@ class ExamController extends Controller
         $exam = Exam::with('lesson')->findOrFail($id);
         //get relation questions with pagination
         $exam->setRelation('questions', $exam->questions()->with('question_bank', 'question_bank.question_group')->paginate(5));
+
         //render with inertia
         return inertia('Teacher/Exams/Show', [
             'exam' => $exam,
@@ -304,6 +305,6 @@ class ExamController extends Controller
         }
 
         //redirect
-        return redirect()->route('teacher.exams.show', $exam->id);
+        return redirect()->route('teacher.exams.show', $request->exam_id);
     }
 }
