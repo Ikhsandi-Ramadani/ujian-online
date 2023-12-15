@@ -63,13 +63,21 @@ class AuthController extends Controller
             'nim'          => 'required|unique:students',
             'gender'        => 'required|string',
             'password'      => 'required|confirmed',
+            'foto'          => 'required|image'
         ]);
+
+        $foto = $request->foto;
+        $destinationPath = 'foto/';
+        $profileImage = date('YmdHis') . "." . $foto->getClientOriginalExtension();
+        $foto->move($destinationPath, $profileImage);
+
         //create student
         Student::create([
             'name'          => $request->name,
             'nim'          => $request->nim,
             'gender'        => $request->gender,
             'password'      => $request->password,
+            'foto'          => $profileImage
         ]);
         //redirect
         return redirect('/');

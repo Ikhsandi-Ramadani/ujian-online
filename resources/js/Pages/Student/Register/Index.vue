@@ -30,6 +30,17 @@
                     </div>
 
                     <div class="mb-4">
+                        <label>Foto</label>
+                        <input type="file" @input="form.foto = $event.target.files[0]" class="form-control"/>
+                        <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                            {{ form.progress.percentage }}%
+                        </progress>
+                        <div v-if="errors.foto" class="alert alert-danger mt-2">
+                            {{ errors.foto }}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
                         <label>Jenis Kelamin</label>
                         <select class="form-select" v-model="form.gender">
                             <option value="L">Laki - Laki</option>
@@ -84,6 +95,8 @@ import {
     Inertia
 } from '@inertiajs/inertia';
 
+import { useForm } from '@inertiajs/inertia-vue3';
+
 export default {
 
     //layout
@@ -103,27 +116,34 @@ export default {
     setup() {
 
         //define form with reactive
-        const form = reactive({
-            nim: '',
-            name: '',
-            gender: '',
-            password: '',
-            password_confirmation: ''
+        const form = useForm({
+            nim: null,
+            name: null,
+            foto: null,
+            gender: null,
+            password: null,
+            password_confirmation: null
         });
 
         //submit method
-        const submit = () => {
 
-            //send data to server
-            Inertia.post('/students/register', {
-                //data
-                nim: form.nim,
-                name: form.name,
-                gender: form.gender,
-                password: form.password,
-                password_confirmation: form.password_confirmation
-            });
+        function submit() {
+            form.post('/students/register');
         }
+
+        // const submit = () => {
+
+        //     //send data to server
+        //     Inertia.post('/students/register', {
+        //         //data
+        //         nim: form.nim,
+        //         name: form.name,
+        //         gender: form.gender,
+        //         password: form.password,
+        //         password_confirmation: form.password_confirmation,
+
+        //     });
+        // }
 
         //return
         return {

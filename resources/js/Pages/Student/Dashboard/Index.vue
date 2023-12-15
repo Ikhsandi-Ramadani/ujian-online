@@ -20,8 +20,8 @@
                             <img v-if="student.foto" class="rounded" width="150" :src="`/foto/${student.foto}`"
                                 alt="change avatar">
                             <img v-else class="rounded" width="200" src="/assets/images/user.jpg" alt="change avatar">
-                            <button type="button" class="btn btn-block btn-primary my-3" data-bs-toggle="modal"
-                                data-bs-target="#modal-foto">Change Photo</button>
+                            <!-- <button type="button" class="btn btn-block btn-primary my-3" data-bs-toggle="modal"
+                                data-bs-target="#modal-foto">Change Photo</button> -->
                         </div>
                         <div class="col-6">
                             <table style="line-height: 40px;">
@@ -143,12 +143,14 @@
                     <div class="card-body">
                         <h5 class="text-center">History Ujian</h5>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded" v-if="last_exam != null && last_grade != null">
+                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded"
+                                v-if="last_exam != null && last_grade != null">
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start">Ujian</th>
                                         <th class="border-0">Sesi</th>
-                                        <th class="border-0 rounded-end">Nilai</th>
+                                        <th class="border-0">Nilai</th>
+                                        <th class="border-0 rounded-end">Export</th>
                                     </tr>
                                 </thead>
                                 <div class="mt-2"></div>
@@ -157,6 +159,11 @@
                                         <td>{{ data.exam.title }}</td>
                                         <td>{{ data.exam_session.title }}</td>
                                         <td>{{ data.grade }}</td>
+                                        <td>
+                                            <Link :href="`/student/export/${data.id}`"
+                                                class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i
+                                                class="fa fa-file"></i></Link>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

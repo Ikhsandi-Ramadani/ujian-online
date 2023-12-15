@@ -72,19 +72,19 @@ class ExamController extends Controller
             'kkm'               => 'required'
         ]);
         //create exam
-        Exam::create([
-            'title'             => $request->title,
-            'lesson_id'         => $request->lesson_id,
-            'teacher_id'        => auth('teacher')->user()->id,
-            'duration'          => $request->duration,
-            'description'       => $request->description,
-            'random_question'   => $request->random_question,
-            'random_answer'     => $request->random_answer,
-            'show_answer'       => $request->show_answer,
-            'kkm'               => $request->kkm
-        ]);
+        $exam = new Exam();
+        $exam->title        = $request->title;
+        $exam->lesson_id    = $request->lesson_id;
+        $exam->teacher_id   = auth('teacher')->user()->id;
+        $exam->duration     = $request->duration;
+        $exam->description  = $request->description;
+        $exam->random_question  = $request->random_question;
+        $exam->random_answer    = $request->random_answer;
+        $exam->show_answer  = $request->show_answer;
+        $exam->kkm          = $request->kkm;
+        $exam->save();
         //redirect
-        return redirect()->route('teacher.exams.index');
+        return redirect()->route('teacher.exams.show', $exam->id);
     }
 
     /**
@@ -268,5 +268,4 @@ class ExamController extends Controller
         //redirect
         return redirect()->route('teacher.exams.show', $exam->id);
     }
-
 }

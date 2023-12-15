@@ -148,6 +148,8 @@ Route::prefix('student')->group(function () {
         Route::post('/exam-end', [StudentExam::class, 'endExam'])->name('student.exams.endExam');
         //route exam result
         Route::get('/exam-result/{exam_group_id}', [StudentExam::class, 'resultExam'])->name('student.exams.resultExam');
+        //Route grade export student
+        Route::get('/export/{id}', [StudentDashboard::class, 'export'])->name('student.export');
     });
 });
 

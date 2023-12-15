@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\ExamGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use PDF;
 
 class DashboardController extends Controller
 {
@@ -69,5 +70,14 @@ class DashboardController extends Controller
         return inertia('Student/Dashboard/Index', [
             'student' => $student
         ]);
+    }
+
+    // Generate PDF
+    public function export($id)
+    {
+        $grade = Grade::find($id);
+        $pdf = PDF::loadView('export', compact('grade'));
+
+        return $pdf->download($grade->student->name . '.pdf');
     }
 }
