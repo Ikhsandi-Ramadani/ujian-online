@@ -50,13 +50,13 @@
                         <h5>Soal {{ question_group.name }}</h5>
                         <hr>
                         <div class="table-responsive mt-3">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                            <table class="table table-bordered table-centered mb-0 rounded">
                                 <thead class="thead-dark">
                                     <tr class="border-0">
-                                        <th class="border-0 rounded-start" style="width:5%">No.</th>
+                                        <th class="border-0 rounded-start">No.</th>
                                         <th class="border-0">Soal</th>
-                                        <th class="border-0" style="width: 5%;">Level Soal</th>
-                                        <th class="border-0 rounded-end" style="width:15%">Aksi</th>
+                                        <th class="border-0">Level Soal</th>
+                                        <th class="border-0 rounded-end">Aksi</th>
                                     </tr>
                                 </thead>
                                 <div class="mt-2"></div>
@@ -64,7 +64,7 @@
                                     <tr v-for="(question, index) in questions.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (questions.current_page - 1) *
                                             questions.per_page }}</td>
-                                        <td>
+                                        <td class="text-wrap">
                                             <div class="fw-bold" v-html="question.question"></div>
                                             <hr>
                                             <ol type="A">
