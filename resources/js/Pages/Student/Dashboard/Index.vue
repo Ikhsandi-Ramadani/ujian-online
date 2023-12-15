@@ -49,7 +49,7 @@
                         <h5 class="text-center">Ujian Terakhir</h5>
                         <hr>
                         <div class="table-responsive">
-                            <table class="table table-centered table-nowrap mb-0 rounded">
+                            <table class="table table-centered mb-0 rounded">
                                 <thead>
                                     <tr>
                                         <td class="fw-bold">Nama Ujian</td>

@@ -4,7 +4,7 @@
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row" v-if="exam_groups.length > 0">
-            <div class="col-md-6" v-for="(data, index) in exam_groups" :key="index">
+            <div class="col-md-6 mb-4" v-for="(data, index) in exam_groups" :key="index">
                 <div class="card border-0 shadow">
                     <div class="card-body">
                         <h5>{{ data.exam_group.exam.title }}</h5>
@@ -75,17 +75,17 @@
                                         Terlewat</button>
                                 </div>
 
+                                <!-- ulangi ujian -->
+                                <div v-if="data.exam_group.exam.kkm > data.grade.grade">
+                                    <Link :href="`/student/exam-confirmation/${data.exam_group.id}`"
+                                        class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
+                                    </Link>
+                                </div>
+                                <!-- End ulangi ujian -->
 
                             </div>
                         </div>
 
-                        <!-- ulangi ujian -->
-                        <div v-else-if="data.exam_group.exam.kkm > data.grade.grade && data.grade.end_time !== null">
-                            <Link :href="`/student/exam-confirmation/${data.exam_group.id}`"
-                                class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
-                            </Link>
-                        </div>
-                        <!-- End ulangi ujian -->
 
                         <div v-else>
                             <button class="btn btn-md btn-danger border-0 shadow w-100 mt-2" disabled>Sudah
