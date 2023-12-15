@@ -13,31 +13,43 @@
                     <div class="card-body">
                         <h5> <i class="fa fa-stopwatch"></i> Detail Sesi Ujian</h5>
                         <hr>
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
-                                <tbody>
-                                    <tr>
-                                        <td style="width:30%" class="fw-bold">Nama Ujian</td>
-                                        <td>{{ exam_session.exam.title }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">Mata Kuliah</td>
-                                        <td>{{ exam_session.exam.lesson.title }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">Sesi</td>
-                                        <td>{{ exam_session.title }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">Mulai</td>
-                                        <td>{{ exam_session.start_time }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">Selesai</td>
-                                        <td>{{ exam_session.end_time }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:30%" class="fw-bold">Nama Ujian</td>
+                                                <td>{{ exam_session.exam.title }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Mata Kuliah</td>
+                                                <td>{{ exam_session.exam.lesson.title }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Sesi</td>
+                                                <td>{{ exam_session.title }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                        <tbody>
+                                            <tr>
+                                                <td class="fw-bold">Mulai</td>
+                                                <td>{{ exam_session.start_time }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Selesai</td>
+                                                <td>{{ exam_session.end_time }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -49,13 +61,13 @@
                         <h5> <i class="fa fa-question-circle"></i> Soal Ujian</h5>
                         <hr>
                         <div class="table-responsive mt-3">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                            <table class="table table-bordered table-centered mb-0 rounded">
                                 <thead class="thead-dark">
                                     <tr class="border-0">
-                                        <th class="border-0 rounded-start" style="width:5%">No.</th>
+                                        <th class="border-0 rounded-start">No.</th>
                                         <th class="border-0">Soal</th>
-                                        <th class="border-0" style="width: 5%;">Level Soal</th>
-                                        <th class="border-0" style="width: 20%;">Kelompok Soal</th>
+                                        <th class="border-0">Level Soal</th>
+                                        <th class="border-0">Kelompok Soal</th>
                                     </tr>
                                 </thead>
                                 <div class="mt-2"></div>
@@ -63,7 +75,7 @@
                                     <tr v-for="(question, index) in exam.questions.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (exam.questions.current_page - 1) *
                                             exam.questions.per_page }}</td>
-                                        <td>
+                                        <td class="text-wrap">
                                             <div class="fw-bold" v-html="question.question_bank.question"></div>
                                             <hr>
                                             <ol type="A">

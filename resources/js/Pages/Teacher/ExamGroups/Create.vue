@@ -5,8 +5,55 @@
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
-                <Link href="/teacher/exam_sessions" class="btn btn-md btn-primary border-0 shadow mb-3"
-                    type="button"><i class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
+                <Link href="/teacher/exam_sessions" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i
+                    class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
+
+                <div class="card border-0 shadow mb-4">
+                    <div class="card-body">
+                        <h5> <i class="fa fa-stopwatch"></i> Detail Sesi Ujian</h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:30%" class="fw-bold">Nama Ujian</td>
+                                                <td>{{ exam_session.exam.title }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Mata Kuliah</td>
+                                                <td>{{ exam_session.exam.lesson.title }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Sesi</td>
+                                                <td>{{ exam_session.title }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                        <tbody>
+                                            <tr>
+                                                <td class="fw-bold">Mulai</td>
+                                                <td>{{ exam_session.start_time }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Selesai</td>
+                                                <td>{{ exam_session.end_time }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
                 <div class="card border-0 shadow">
                     <div class="card-body">
                         <h5><i class="fa fa-user-plus"></i> Enrolle Siswa</h5>

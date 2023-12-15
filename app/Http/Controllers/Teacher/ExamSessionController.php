@@ -169,6 +169,9 @@ class ExamSessionController extends Controller
         //get exams
         $exam = $exam_session->exam;
 
+        //get exam_session
+        $exam_session = ExamSession::with('exam.lesson')->findOrFail($exam_session->id);
+
         //get students already enrolled
         $students_enrolled = ExamGroup::where('exam_id', $exam->id)->where('exam_session_id', $exam_session->id)->pluck('student_id')->all();
 
