@@ -121,7 +121,7 @@
                         </div>
 
                         <!-- ulangi ujian -->
-                        <div v-else-if="last_exam.exam.kkm > last_grade.grade">
+                        <div v-else-if="last_exam.exam.kkm > last_grade.grade && last_grade.end_time !== null">
                             <Link :href="`/student/exam-confirmation/${last_exam.id}`"
                                 class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
                             </Link>

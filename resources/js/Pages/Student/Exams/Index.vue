@@ -85,6 +85,7 @@
                                 class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
                             </Link>
                         </div>
+                        <!-- End ulangi ujian -->
 
                         <div v-else>
                             <button class="btn btn-md btn-danger border-0 shadow w-100 mt-2" disabled>Sudah
