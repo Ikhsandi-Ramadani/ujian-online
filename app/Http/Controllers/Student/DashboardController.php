@@ -7,7 +7,7 @@ use App\Models\Student;
 use App\Models\ExamGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DashboardController extends Controller
 {
