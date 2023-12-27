@@ -161,7 +161,7 @@
                                         <td>{{ data.grade }}</td>
                                         <td>
                                             <Link :href="`/student/export/${data.id}`"
-                                                class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i
+                                                class="btn btn-sm btn-primary border-0 shadow me-2" target="blank"><i
                                                 class="fa fa-file"></i></Link>
                                         </td>
                                     </tr>
