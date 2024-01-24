@@ -160,9 +160,9 @@
                                         <td>{{ data.exam_session.title }}</td>
                                         <td>{{ data.grade }}</td>
                                         <td>
-                                            <Link :href="`/student/export/${data.id}`"
+                                            <a :href="`/student/export/${data.id}`"
                                                 class="btn btn-sm btn-primary border-0 shadow me-2" target="_blank"><i
-                                                class="fa fa-file"></i></Link>
+                                                class="fa fa-file"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

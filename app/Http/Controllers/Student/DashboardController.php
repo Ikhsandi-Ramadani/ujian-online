@@ -76,8 +76,7 @@ class DashboardController extends Controller
     public function export($id)
     {
         $grade = Grade::find($id);
-        $pdf = PDF::loadView('export', compact('grade'));
 
-        return $pdf->download($grade->student->name . '.pdf');
+        return view('export',compact('grade'));
     }
 }
