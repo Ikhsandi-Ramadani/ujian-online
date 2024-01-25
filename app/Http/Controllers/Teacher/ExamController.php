@@ -295,6 +295,15 @@ class ExamController extends Controller
         //get question
         $questions = QuestionBank::whereNotIn('id', $questions_enrolled)->where('teacher_id', $teacher->id)->where('question_group_id', $request->question_group_id)->where('level', $request->level)->inRandomOrder()->limit($request->jumlah)->get();
 
+        // Algoritma Fisher Yates Shuffle
+        $count = $request->jumlah;
+
+        for ($i = $count - 1; $i > 0; $i--) {
+            $j = rand(0, $i);
+            // Swap quest$questions elements
+            [$questions[$i], $questions[$j]] = [$questions[$j], $questions[$i]];
+        }
+
         //create exam_group
         foreach ($questions as $question) {
             //create exam_group
