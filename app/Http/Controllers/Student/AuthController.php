@@ -2,15 +2,48 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Models\Grade;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Exam;
 
 class AuthController extends Controller
 {
     public function home()
     {
-        return \Inertia\Inertia::render('Student/Home/Index');
+        $grades = Grade::with('student', 'exam', 'exam_session')
+            ->groupBy('student_id')
+            ->select('student_id', \DB::raw('count(*) as total_exams'))
+            ->orderBy('total_exams', 'asc')
+            ->get();
+
+        // Mengambil 3 siswa dengan jumlah ujian terendah
+        $bestStudent = $grades->take(3);
+        // dd($bestStudent);
+
+
+        // Mengambil semua data ujian
+        $exams = Exam::has('grade')->get();
+
+        $data = [];
+        // Looping melalui setiap ujian
+        foreach ($exams as $exam) {
+            // Mendapatkan siswa terbaik untuk setiap mata pelajaran
+            $highestGrades = Grade::where('exam_id', $exam->id)
+                ->groupBy('student_id')
+                ->select('student_id', \DB::raw('MAX(grade) as max_grade'))
+                ->orderByDesc('max_grade')
+                ->get();
+
+            $highestGrades = $highestGrades->take(1);
+            foreach ($highestGrades as $val) {
+                $student = Student::find($val->student_id);
+                $data[] = ['name' => $student->name, "nim" => $student->nim, "foto" => $student->foto, "exam_name" => $exam->title, "nilai" => $val->max_grade];
+            }
+        }
+
+        return \Inertia\Inertia::render('Student/Home/Index', ['data' => $data]);
     }
 
     public function login()

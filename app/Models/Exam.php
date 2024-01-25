@@ -43,4 +43,9 @@ class Exam extends Model
     {
         return $this->hasMany(Question::class)->orderBy('id', 'DESC');
     }
+
+    public function grade()
+    {
+        return $this->hasOne(Grade::class);
+    }
 }
