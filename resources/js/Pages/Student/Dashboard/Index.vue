@@ -12,7 +12,7 @@
         </div>
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-6 col-sm-12">
                 <div class="card card-body border-0 shadow mb-4">
                     <h2 class="h5 mb-4 text-center">Biodata</h2>
                     <div class="row">
