@@ -140,9 +140,9 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img v-if="data.foto" class="rounded" width="150" :src="`/foto/${data.foto}`"
+                                <img v-if="data.foto" class="rounded" width="150" height="150" :src="`/foto/${data.foto}`"
                                     alt="change avatar">
-                                <img v-else class="rounded" width="150" src="/assets/images/user.jpg" alt="change avatar">
+                                <img v-else class="rounded" width="150" height="150" src="/assets/images/user.jpg" alt="change avatar">
                                 <div class="mt-3">
                                     <h4>{{ data.name }}</h4>
                                     <p>{{ data.nim }}</p>
