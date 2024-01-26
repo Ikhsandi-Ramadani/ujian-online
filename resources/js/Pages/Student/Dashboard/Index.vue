@@ -128,13 +128,13 @@
                         </div>
 
                         <!-- ulangi ujian -->
-                        <div v-else-if="data.exam_group.exam.kkm > data.grade.grade">
-                            <div v-if="examTimeEndChecker(data.exam_group.exam_session.end_time)">
+                        <div v-else-if="last_exam.exam.kkm > last_grade.grade">
+                            <div v-if="examTimeEndChecker(last_exam.exam_session.end_time)">
                                 <button class="btn btn-md btn-danger border-0 shadow w-100 mt-2" disabled>Waktu
                                     Terlewat</button>
                             </div>
                             <div v-else>
-                                <Link :href="`/student/exam-confirmation/${data.exam_group.id}`"
+                                <Link :href="`/student/exam-confirmation/${last_exam.id}`"
                                     class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Ulangi Kerjakan
                                 </Link>
                             </div>
