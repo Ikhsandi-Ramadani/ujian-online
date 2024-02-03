@@ -321,8 +321,25 @@ class ExamController extends Controller
         //count jumlah soal
         $count_question = Question::where('exam_id', $request->exam_id)->count();
 
+        $question = Question::where('exam_id', $request->exam_id)->get();
+        $grade_exam = 0;
+        foreach ($question as $data) {
+            if ($data->question_bank->level == 1) {
+                $grade_exam = round(($count_correct_answer * 10) / $count_question, 2);
+            } elseif ($data->question_bank->level == 2) {
+                $grade_exam = round(($count_correct_answer * 15) / $count_question, 2);
+            } elseif ($data->question_bank->level == 3) {
+                $grade_exam = round(($count_correct_answer * 20) / $count_question, 2);
+            } elseif ($data->question_bank->level == 4) {
+                $grade_exam = round(($count_correct_answer * 25) / $count_question, 2);
+            } elseif ($data->question_bank->level == 5) {
+                $grade_exam = round(($count_correct_answer * 30) / $count_question, 2);
+            }
+            $grade_exam += $grade_exam;
+        }
+
         //hitung nilai
-        $grade_exam = round($count_correct_answer / $count_question * 100, 2);
+        // $grade_exam = round($count_correct_answer / $count_question * 100, 2);
 
         //update nilai di table grades
         $grade = Grade::where('exam_id', $request->exam_id)
