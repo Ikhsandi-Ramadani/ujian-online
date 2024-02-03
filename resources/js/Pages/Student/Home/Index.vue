@@ -15,6 +15,9 @@
     </nav>
 
     <main>
+        <!-- <marquee width="100%" direction="right" height="100px">
+            This is a sample scrolling text that has scrolls texts to the right.
+        </marquee> -->
         <section class="my-auto d-flex align-items-center justify-content-center">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
@@ -142,7 +145,8 @@
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img v-if="data.foto" class="rounded" width="150" height="150" :src="`/foto/${data.foto}`"
                                     alt="change avatar">
-                                <img v-else class="rounded" width="150" height="150" src="/assets/images/user.jpg" alt="change avatar">
+                                <img v-else class="rounded" width="150" height="150" src="/assets/images/user.jpg"
+                                    alt="change avatar">
                                 <div class="mt-3">
                                     <h4>{{ data.name }}</h4>
                                     <p>{{ data.nim }}</p>

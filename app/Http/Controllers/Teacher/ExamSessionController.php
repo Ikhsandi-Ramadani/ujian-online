@@ -131,8 +131,12 @@ class ExamSessionController extends Controller
             'start_time'    => 'required',
             'end_time'      => 'required',
         ]);
+
         //update exam_session
         $exam_session->update([
+            'start_time_before'    => $exam_session->start_time,
+            'end_time_before'      =>  $exam_session->end_time,
+
             'title'         => $request->title,
             'exam_id'       => $request->exam_id,
             'start_time'    => date('Y-m-d H:i:s', strtotime($request->start_time)),
