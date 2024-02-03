@@ -319,24 +319,97 @@ class ExamController extends Controller
             ->count();
 
         //count jumlah soal
-        $count_question = Question::where('exam_id', $request->exam_id)->count();
+        $count_question = Question::where('exam_id', $request->exam_id)->get();
+        $l1 = 0;
+        $l1benar = 0;
+        $l2 = 0;
+        $l2benar = 0;
+        $l3 = 0;
+        $l3benar = 0;
+        $l4 = 0;
+        $l4benar = 0;
+        $l5 = 0;
+        $l5benar = 0;
 
-        $question = Question::where('exam_id', $request->exam_id)->get();
-        $grade_exam = 0;
-        foreach ($question as $data) {
+        // Jumlah Soal tiap level
+        foreach ($count_question as $data) {
             if ($data->question_bank->level == 1) {
-                $grade_exam = round(($count_correct_answer * 10) / $count_question, 2);
-            } elseif ($data->question_bank->level == 2) {
-                $grade_exam = round(($count_correct_answer * 15) / $count_question, 2);
-            } elseif ($data->question_bank->level == 3) {
-                $grade_exam = round(($count_correct_answer * 20) / $count_question, 2);
-            } elseif ($data->question_bank->level == 4) {
-                $grade_exam = round(($count_correct_answer * 25) / $count_question, 2);
-            } elseif ($data->question_bank->level == 5) {
-                $grade_exam = round(($count_correct_answer * 30) / $count_question, 2);
+                $l1++;
+
+                $l1_correct = Answer::where('exam_id', $request->exam_id)
+                    ->where('exam_session_id', $request->exam_session_id)
+                    ->where('question_id', $data->id)
+                    ->where('student_id', auth()->guard('student')->user()->id)
+                    ->where('is_correct', 'Y')
+                    ->count();
+
+                if ($l1_correct !== 0) {
+                    $l1benar++;
+                }
             }
-            $grade_exam += $grade_exam;
+            if ($data->question_bank->level == 2) {
+                $l2++;
+
+                $l2_correct = Answer::where('exam_id', $request->exam_id)
+                    ->where('exam_session_id', $request->exam_session_id)
+                    ->where('question_id', $data->id)
+                    ->where('student_id', auth()->guard('student')->user()->id)
+                    ->where('is_correct', 'Y')
+                    ->count();
+
+                if ($l2_correct !== 0) {
+                    $l2benar++;
+                }
+            }
+            if ($data->question_bank->level == 3) {
+                $l3++;
+                $l3_correct = Answer::where('exam_id', $request->exam_id)
+                    ->where('exam_session_id', $request->exam_session_id)
+                    ->where('question_id', $data->id)
+                    ->where('student_id', auth()->guard('student')->user()->id)
+                    ->where('is_correct', 'Y')
+                    ->count();
+
+                if ($l3_correct !== 0) {
+                    $l3benar++;
+                }
+            }
+            if ($data->question_bank->level == 4) {
+                $l4++;
+                $l4_correct = Answer::where('exam_id', $request->exam_id)
+                    ->where('exam_session_id', $request->exam_session_id)
+                    ->where('question_id', $data->id)
+                    ->where('student_id', auth()->guard('student')->user()->id)
+                    ->where('is_correct', 'Y')
+                    ->count();
+
+                if ($l4_correct !== 0) {
+                    $l4benar++;
+                }
+            }
+            if ($data->question_bank->level == 5) {
+                $l5++;
+
+                $l5_correct = Answer::where('exam_id', $request->exam_id)
+                    ->where('exam_session_id', $request->exam_session_id)
+                    ->where('question_id', $data->id)
+                    ->where('student_id', auth()->guard('student')->user()->id)
+                    ->where('is_correct', 'Y')
+                    ->count();
+
+                if ($l5_correct !== 0) {
+                    $l5benar++;
+                }
+            }
         }
+
+        $hasil1 = round(($l1benar * 10) / $l1, 2);
+        $hasil2 = round(($l2benar * 15) / $l2, 2);
+        $hasil3 = round(($l3benar * 20) / $l3, 2);
+        $hasil4 = round(($l4benar * 25) / $l4, 2);
+        $hasil5 = round(($l5benar * 30) / $l5, 2);
+
+        $grade_exam = $hasil1 + $hasil2 + $hasil3 + $hasil4 + $hasil5;
 
         //hitung nilai
         // $grade_exam = round($count_correct_answer / $count_question * 100, 2);
