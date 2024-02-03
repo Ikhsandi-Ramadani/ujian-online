@@ -9,7 +9,8 @@
                     Selamat Datang <strong>{{ auth.student.name }}</strong>
                 </div>
                 <div v-for="(data, index) in history" :key="index">
-                    <div v-if="data.exam_session.start_time_before !== null" class="alert alert-danger border-0 shadow">
+                    <div v-if="data.exam_session.start_time_before !== null && examTimeRangeChecker(last_exam.exam_session.start_time, last_exam.exam_session.end_time)"
+                        class="alert alert-danger border-0 shadow">
                         <strong>Jadwal {{ data.exam_session.title }} berubah. Silahkan dicek kembali</strong>
                     </div>
                 </div>

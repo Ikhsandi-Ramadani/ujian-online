@@ -77,6 +77,6 @@ class DashboardController extends Controller
     {
         $grade = Grade::find($id);
 
-        return view('export',compact('grade'));
+        return view('export', compact('grade'));
     }
 }
