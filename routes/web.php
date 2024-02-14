@@ -97,6 +97,8 @@ Route::prefix('teacher')->group(function () {
         //route resource exams
         Route::resource('/exams', ExamController::class, ['as' => 'teacher']);
 
+        // Send Email
+        Route::get('/exam_sessions/send-email', [ExamSessionController::class, 'sendEmail'])->name('teacher.exam_sessions.sendEmail');
         //peserta
         Route::get('/exam_sessions/{exam_session}/peserta', [ExamSessionController::class, 'peserta'])->name('teacher.exam_sessions.peserta');
         //route resource exam_sessions
@@ -121,6 +123,7 @@ Route::prefix('teacher')->group(function () {
 
 //login students
 Route::get('/', [AuthController::class, 'home']);
+// Send Email
 Route::get('/students/login', [AuthController::class, 'login']);
 Route::post('/students/login', [AuthController::class, 'postLogin'])->name('student.login');
 //register students

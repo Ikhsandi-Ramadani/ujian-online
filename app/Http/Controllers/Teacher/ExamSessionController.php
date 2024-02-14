@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Teacher;
 
+use Carbon\Carbon;
 use App\Models\Exam;
+use App\Mail\SendMail;
 use App\Models\Student;
+use App\Mail\SampleMail;
 use App\Models\ExamGroup;
 use App\Models\ExamSession;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class ExamSessionController extends Controller
 {
@@ -132,6 +136,29 @@ class ExamSessionController extends Controller
             'end_time'      => 'required',
         ]);
 
+        $newStartTime = date('Y-m-d H:i:s', strtotime($request->start_time));
+        $newEndTime = date('Y-m-d H:i:s', strtotime($request->end_time));
+
+        if ($exam_session->start_time !== $newStartTime || $exam_session->end_time !== $newEndTime) {
+            // Send Email
+            $ujian = $exam_session->exam->name;
+            $sesi = $exam_session->title;
+            $waktu_mulai = Carbon::parse($newStartTime)->isoFormat('D MMMM Y') . ', Pukul : ' . Carbon::parse($newStartTime)->format('H:i');
+            $waktu_akhir = Carbon::parse($newEndTime)->isoFormat('D MMMM Y') . ', Pukul : ' . Carbon::parse($newEndTime)->format('H:i');
+
+            $mailData = [
+                'ujian' => $ujian . ' ' . $sesi,
+                'waktu_mulai' => $waktu_mulai,
+                'waktu_akhir' => $waktu_akhir,
+            ];
+
+            $exam_groups = ExamGroup::where('exam_session_id', $exam_session->id)->where('exam_id', $exam_session->exam->id)->get();
+            foreach ($exam_groups as $data) {
+                $student = Student::where('id', $data->student_id)->first();
+                Mail::to($student->nim . '@uin-alauddin.ac.id')->send(new SendMail($mailData));
+            }
+        }
+
         //update exam_session
         $exam_session->update([
             'start_time_before'    => $exam_session->start_time,
@@ -142,6 +169,8 @@ class ExamSessionController extends Controller
             'start_time'    => date('Y-m-d H:i:s', strtotime($request->start_time)),
             'end_time'      => date('Y-m-d H:i:s', strtotime($request->end_time)),
         ]);
+
+
         //redirect
         return redirect()->route('teacher.exam_sessions.index');
     }
